@@ -1,0 +1,12 @@
+#Ignore these directories
+/original-data
+
+#ignore these files
+.DS_Store
+.keys
+*.pyc
+#don't upload for now so we can get our methodology up
+*.csv
+*.json
+*.zip
+*.xlsx
