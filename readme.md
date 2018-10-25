@@ -18,7 +18,7 @@ We're working to answer the question using data on more than 7 million registere
 
 WRAL News is using the following publicly available data from the State Board of Elections and Ethics Enforcement:
 
-* [2018 voter registration file as of Sept. 22, 2018](https://s3.amazonaws.com/dl.ncsbe.gov/data/ncvoter_Statewide.zip)
+* [2018 voter registration file as of Sept. 22, 2018](https://s3.amazonaws.com/dl.ncsbe.gov/data/ncvoter_Statewide.zip). Coordinates in WGS 84 decimal degrees (EPSG:4326).
 * [Latitude/Longitude coordinates for unique NC voter addresses](https://s3.amazonaws.com/dl.ncsbe.gov/ShapeFiles/address_points_sboe.zip)
 * 2018 early voting locations
 * 2014 early voting locations
