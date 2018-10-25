@@ -43,13 +43,11 @@ We used the free application programming interface (API) from the [Open Route Se
 python getIsochrones.py data/early_voting2018.csv 2018
 ```
 
-Open Route Service limits queries through its API such that:
+Open Route Service limits queries through its API to 10 shapefiles at a time. The service also limits total API queries to 2,500 a day.
 
-```
-range / interval = 10
-```
+Due to these limitations, the Python script runs queries for each site four times to produce a geojson feature collection with shapefiles at 0.5-mile intervals from 0.5 to 20, which each polygon describing a driving distance range.
 
-Due to this limitation, the generated isochrones run in integers from 1 to 10, with each shapefile describing a driving distance range. For example, a point that appears in the isochrone with a mile value of 5 is actually within 4 and 5 miles from the early voting location.
+For example, a point that appears in the isochrone with a mile value of 5, but not in an isochrone with a mile value of 4.5, is within 4.5 and 5 miles from the early voting location.
 
 Voter registration data, in CSV format, [is loaded into the database](http://www.kevfoo.com/2012/01/Importing-CSV-to-PostGIS/), and a separate Python script is used to import the isochrone geojsons using [ogr2ogr](https://www.gdal.org/ogr2ogr.html) and its [pygdaltools wrapper](https://pypi.org/project/pygdaltools/). Usage for [```loadIsochrones.py```](loadIsochrones.py):
 
@@ -57,11 +55,11 @@ Voter registration data, in CSV format, [is loaded into the database](http://www
 python loadIsochrones.py data/isochrones_lookup.csv
 ```
 
-A query can then generate mile values for each isochrone intersecting each voter, by county. And by [deduplicating](http://www.postgresqltutorial.com/how-to-delete-duplicate-rows-in-postgresql/) the table based on the voter and keeping the smallest value, we can find the closest site and distance for each voter in 2014 and 2018.
+[SQL queries](processIsochrones.sql) can then generate mile values for each isochrone intersecting each voter, by county. And by [deduplicating](https://www.periscopedata.com/blog/first-row-per-group-5x-faster) the table based on the voter and keeping the smallest value, we can find the closest site and distance for each voter in 2014 and 2018.
 
 We then used database software to calculate the change in distance from the closest voting location in 2014 and the closest early voting location in 2018 for every active and inactive voter.
 
-Using these values, we can calculated average, median, maximum and standard deviation values for each of the following subroup types defined in the voter registration data:
+Using these values, we can calculate average, median, maximum and standard deviation values for each of the following subroup types defined in the voter registration data:
 
 * Political Party
 * Race

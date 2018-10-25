@@ -1,7 +1,7 @@
 '''
 A simple script to load in isochrone shapes
 to our PostgreSQL database using ogr2ogr and
-its pygdaltools wrapper
+its pygdaltools wrapper.
 
 Usage:
 python loadIsochrones.py data/isochrones_lookup.csv
