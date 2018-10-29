@@ -35,6 +35,8 @@ Coordinates were not available for 2014 through this tool, so the bulk of these 
 
 In 30 North Carolina counties, there were no changes in early voting locations between 2014 and 2018, so these counties were omitted from the analysis. This left 580 sites for the two midterm elections. Voters in these counties were also omitted from this analysis, leaving 6,433,969 active and inactive voters (both of which are eligible to cast ballots according to state elections officials).
 
+While some early voting locations may have been relocated due to the impact of hurricanes, this analysis considered only the original early voting locations approved by local elections board and the state board.
+
 Latitude and longitude coordinates were then matched to active and inactive registered voters on addresses, city, county and zip using MySQL database software. The query failed to match the addresses of 145,645 voters, a 97.7 percent match rate.
 
 We used the free application programming interface (API) from the [Open Route Service](https://openrouteservice.org/documentation/#/reference/isochrones/isochrones/isochrones-service) to generate isochrones - polygons for geographic information systems used to determine driving distances radiating outward from a point source. Isochrones were generated programatically using the Python script [```getIsochrones.py```](getIsochrones.py) (NOTE: Use of the services requires a valid API key). Usage:
