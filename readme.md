@@ -57,7 +57,7 @@ Voter registration data, in CSV format, [is loaded into the database](http://www
 python loadIsochrones.py data/isochrones_lookup.csv
 ```
 
-[SQL queries](processIsochrones.sql) can then generate mile values for each isochrone intersecting each voter, by county. And by [deduplicating](https://www.periscopedata.com/blog/first-row-per-group-5x-faster) the table based on the voter and keeping the smallest value, we can find the closest site and distance for each voter in 2014 and 2018.
+[SQL queries](postgres-analysis.sql) can then generate mile values for each isochrone intersecting each voter, by county. And by [deduplicating](https://www.periscopedata.com/blog/first-row-per-group-5x-faster) the table based on the voter and keeping the smallest value, we can find the closest site and distance for each voter in 2014 and 2018.
 
 We then used database software to calculate the change in distance from the closest voting location in 2014 and the closest early voting location in 2018 for every active and inactive voter.
 
