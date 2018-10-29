@@ -25,7 +25,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
 
 **_PLEASE NOTE: These findings are preliminary and still subject to review and change._**
 
-###TABLE ONE: Voters more than 1 mile further away, per OMB MSA delineation
+### TABLE ONE: Voters more than 1 mile further away, per OMB MSA delineation
 ```
    omb    | moved_voters | registered_voters | moved_pct 
 ----------+--------------+-------------------+-----------
@@ -34,7 +34,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  urban    |       330789 |           3702487 |       8.9
  ```
 
-###TABLE TWO: Voters more than 1 mile further away, per NC Commerce economic tier
+### TABLE TWO: Voters more than 1 mile further away, per NC Commerce economic tier
 ```
   tier | moved_voters | registered_voters | moved_pct 
 ------+--------------+-------------------+-----------
@@ -43,7 +43,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  3    |       265120 |           3200743 |       8.3
 ```
 
-###TABLE THREE: Voter stats by OMB MSA delineation
+### TABLE THREE: Voter stats by OMB MSA delineation
 ```
    omb    | avg_dist | std_dist | max_dist | min_dist 
 ----------+----------+----------+----------+----------
@@ -52,7 +52,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  rural    |     0.68 |     3.69 |     17.5 |    -16.5
 ```
 
-###TABLE FOUR: Voter stats by NC Commerce economic tier
+### TABLE FOUR: Voter stats by NC Commerce economic tier
 ```
  tier | avg_dist | std_dist | max_dist | min_dist 
 ------+----------+----------+----------+----------
@@ -61,14 +61,14 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  1    |     1.01 |     4.06 |       17 |    -16.5
 ```
 
-###TABLE FIVE: Overall voter stats
+### TABLE FIVE: Overall voter stats
 ```
  avg_dist | std_dist | max_dist | min_dist 
 ----------+----------+----------+----------
      0.36 |     2.21 |     18.5 |    -16.5
 ```
 
-###TABLE SIX: Voter stats by race code
+### TABLE SIX: Voter stats by race code
 ```
  race_code | avg_dist | std_dist | max_dist | min_dist 
 -----------+----------+----------+----------+----------
@@ -81,7 +81,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  W         |     0.42 |     2.24 |     18.5 |    -16.5
 ```
 
-###TABLE SEVEN: Voter stats by party code
+### TABLE SEVEN: Voter stats by party code
 ```
  party_cd | avg_dist | std_dist | max_dist | min_dist 
 ----------+----------+----------+----------+----------
@@ -93,7 +93,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  REP      |     0.45 |     2.30 |     18.5 |      -16
 ```
 
-###TABLE EIGHT: Voters more than 1 mile further away, by race code 
+### TABLE EIGHT: Voters more than 1 mile further away, by race code 
 ```
  race | moved_voters | registered_voters | moved_pct 
 ------+--------------+-------------------+-----------
@@ -106,7 +106,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  W    |       579705 |           4274458 |      13.6
 ```
 
-###TABLE NINE: Voters more than 1 mile further away, by party code
+### TABLE NINE: Voters more than 1 mile further away, by party code
 ```
  party | moved_voters | registered_voters | moved_pct 
 -------+--------------+-------------------+-----------
@@ -118,7 +118,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  UNA   |       246212 |           1983690 |      12.4
 ```
 
-###TABLE TEN: Percentage of voters in each race code, by distance category
+### TABLE TEN: Percentage of voters in each race code, by distance category
 ```
   race | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 -------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
@@ -131,7 +131,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  W     |            0.2 |         0.8 |        5.0 |      74.5 |        11.5 |          3.8 |             0.8 |          1.1 |       2.2
 ```
 
-###TABLE ELEVEN: Percentage of voters in each party code, by distance category
+### TABLE ELEVEN: Percentage of voters in each party code, by distance category
 ```
  party | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 -------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
@@ -143,7 +143,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  UNA   |            0.2 |         0.8 |        5.4 |      75.3 |        10.7 |          3.3 |             0.7 |          0.9 |       2.6
 ```
 
-###TABLE TWELVE: Percentage of voters in each OMB MSA delineation, by distance category
+### TABLE TWELVE: Percentage of voters in each OMB MSA delineation, by distance category
 ```
   county  | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 ----------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
@@ -152,7 +152,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  urban    |            175 |        8676 |     212989 |   3039148 |      364076 |        66069 |            9403 |        16879 |     68368
 ```
 
-###TABLE TWELVE: Percentage of voters in each Commerce economic tier, by distance category
+### TABLE TWELVE: Percentage of voters in each Commerce economic tier, by distance category
 ```
   county  | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 ----------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
@@ -161,7 +161,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  urban    |            0.0 |         0.2 |        5.6 |      80.2 |         9.6 |          1.7 |             0.2 |          0.4 |       1.8
 ```
 
-###TABLE THIRTEEN: Voter stats by ethnic code
+### TABLE THIRTEEN: Voter stats by ethnic code
 ```
  ethnic_code | avg_dist | std_dist | max_dist | min_dist 
 -------------+----------+----------+----------+----------
@@ -170,7 +170,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  NL          |     0.37 |     2.26 |     18.5 |    -16.5
 ```
 
-###TABLE FOURTEEN: Voters more than 1 mile further away, by ethnic code
+### TABLE FOURTEEN: Voters more than 1 mile further away, by ethnic code
 ```
  ethnic_code | moved_voters | registered_voters | moved_pct 
 -------------+--------------+-------------------+-----------
@@ -179,7 +179,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  UN          |       146440 |           1200157 |      12.2
 ```
 
-###TABLE FIFTEEN: Percentage of voters in each ethnic code, by distance category
+### TABLE FIFTEEN: Percentage of voters in each ethnic code, by distance category
 ```
  ethnic_code | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 -------------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
