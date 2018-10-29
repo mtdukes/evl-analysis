@@ -3,7 +3,7 @@
 
 Based on our preliminary analysis so far, it appears voters in poor and rural counties have been the most disproportionately impacted by the changes in early voting locations in 2018, compared to 2014
 
-Compared to urban voters, rural voters are more than 2 times as likely to be one mile or further away from their closest early voting location in 2018 (t1). Voters in the state's poorest counties are more than 3 times as likely as urban voters to be one mile or further away in 2018 (t2).
+Compared to urban voters, rural voters are more than 2 times as likely to be one mile or further away from their closest early voting location in 2018 ([t1](#t1)). Voters in the state's poorest counties are more than 3 times as likely as urban voters to be one mile or further away in 2018 (t2).
 
 On average, rural voters overall are about 0.68 miles further away from their closest early voting location in 2018 (t3). That's almost four times the change in average distance for urban voters. And voters in the poorest counties are 1 mile further away from their closest site than in 2014, almost six times further away than voters in the wealthiest counties (t4).
 
@@ -25,7 +25,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
 
 **_PLEASE NOTE: These findings are preliminary and still subject to review and change._**
 
-### TABLE ONE: Voters more than 1 mile further away, per OMB MSA delineation
+### TABLE ONE<a name="t1"></a>: Voters more than 1 mile further away, per OMB MSA delineation
 ```
    omb    | moved_voters | registered_voters | moved_pct 
 ----------+--------------+-------------------+-----------
