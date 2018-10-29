@@ -15,7 +15,7 @@ White voters, on average, are 0.42 miles further away from sites in 2018 than th
 
 The average Republican voter is about 0.45 miles further away from an early voting location, compared to 0.31 miles further away for Democrats. Unaffiliated voters are on average about 0.34 miles further away ([t7](#t7)).
 
-White and Republican voters are also slightly more likely than other groups to be further than a mile away from their closest early voting location in 2018 compared to 2014 ([t8](#t8), t9).
+White and Republican voters are also slightly more likely than other groups to be further than a mile away from their closest early voting location in 2018 compared to 2014 ([t8](#t8), [t9](#t9)).
 
 Both Hispanic and non-Hispanic voters are, on average, a little further away from early voting sites in 2018 than 2014 ([t14](#t14)). The difference, however, is about 50 percent further for non-Hispanic voters. But both groups are almost as likely to be more than a mile further away from their 2018 early voting location, compared to 2014 ([t15](#t15)).
 
