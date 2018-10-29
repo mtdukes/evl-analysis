@@ -25,8 +25,8 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
 
 **_PLEASE NOTE: These findings are preliminary and still subject to review and change._**
 
+###TABLE ONE: Voters more than 1 mile further away, per OMB MSA delineation
 ```
-TABLE ONE: Voters more than 1 mile further away, per OMB MSA delineation
    omb    | moved_voters | registered_voters | moved_pct 
 ----------+--------------+-------------------+-----------
  rural    |       208240 |           1079287 |      19.3
@@ -34,8 +34,8 @@ TABLE ONE: Voters more than 1 mile further away, per OMB MSA delineation
  urban    |       330789 |           3702487 |       8.9
  ```
 
+###TABLE TWO: Voters more than 1 mile further away, per NC Commerce economic tier
 ```
-TABLE TWO: Voters more than 1 mile further away, per NC Commerce economic tier
   tier | moved_voters | registered_voters | moved_pct 
 ------+--------------+-------------------+-----------
  1    |       112556 |            439813 |      25.6
@@ -43,8 +43,8 @@ TABLE TWO: Voters more than 1 mile further away, per NC Commerce economic tier
  3    |       265120 |           3200743 |       8.3
 ```
 
+###TABLE THREE: Voter stats by OMB MSA delineation
 ```
-TABLE THREE: Voter stats by OMB MSA delineation
    omb    | avg_dist | std_dist | max_dist | min_dist 
 ----------+----------+----------+----------+----------
  urban    |     0.18 |     1.49 |       16 |    -14.5
@@ -52,8 +52,8 @@ TABLE THREE: Voter stats by OMB MSA delineation
  rural    |     0.68 |     3.69 |     17.5 |    -16.5
 ```
 
+###TABLE FOUR: Voter stats by NC Commerce economic tier
 ```
-TABLE FOUR: Voter stats by NC Commerce economic tier
  tier | avg_dist | std_dist | max_dist | min_dist 
 ------+----------+----------+----------+----------
  3    |     0.15 |     1.80 |     18.5 |      -16
@@ -61,15 +61,15 @@ TABLE FOUR: Voter stats by NC Commerce economic tier
  1    |     1.01 |     4.06 |       17 |    -16.5
 ```
 
+###TABLE FIVE: Overall voter stats
 ```
-TABLE FIVE: Overall voter stats
  avg_dist | std_dist | max_dist | min_dist 
 ----------+----------+----------+----------
      0.36 |     2.21 |     18.5 |    -16.5
 ```
 
+###TABLE SIX: Voter stats by race code
 ```
-TABLE SIX: Voter stats by race code
  race_code | avg_dist | std_dist | max_dist | min_dist 
 -----------+----------+----------+----------+----------
  I         |    -0.68 |     3.19 |       18 |    -14.5
@@ -81,8 +81,8 @@ TABLE SIX: Voter stats by race code
  W         |     0.42 |     2.24 |     18.5 |    -16.5
 ```
 
+###TABLE SEVEN: Voter stats by party code
 ```
-TABLE SEVEN: Voter stats by party code
  party_cd | avg_dist | std_dist | max_dist | min_dist 
 ----------+----------+----------+----------+----------
  GRE      |     0.20 |     1.96 |       13 |      -10
@@ -93,8 +93,8 @@ TABLE SEVEN: Voter stats by party code
  REP      |     0.45 |     2.30 |     18.5 |      -16
 ```
 
+###TABLE EIGHT: Voters more than 1 mile further away, by race code 
 ```
-TABLE EIGHT: Voters more than 1 mile further away, by race code 
  race | moved_voters | registered_voters | moved_pct 
 ------+--------------+-------------------+-----------
  A    |         5593 |             85368 |       6.6
@@ -106,8 +106,8 @@ TABLE EIGHT: Voters more than 1 mile further away, by race code
  W    |       579705 |           4274458 |      13.6
 ```
 
+###TABLE NINE: Voters more than 1 mile further away, by party code
 ```
-TABLE NINE: Voters more than 1 mile further away, by party code
  party | moved_voters | registered_voters | moved_pct 
 -------+--------------+-------------------+-----------
  CST   |           40 |               338 |      11.8
@@ -118,8 +118,8 @@ TABLE NINE: Voters more than 1 mile further away, by party code
  UNA   |       246212 |           1983690 |      12.4
 ```
 
+###TABLE TEN: Percentage of voters in each race code, by distance category
 ```
-TABLE TEN: Percentage of voters in each race code, by distance category
   race | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 -------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
  A     |            0.1 |         0.3 |        6.1 |      81.4 |         6.9 |          1.3 |             0.2 |          0.2 |       3.5
@@ -131,8 +131,8 @@ TABLE TEN: Percentage of voters in each race code, by distance category
  W     |            0.2 |         0.8 |        5.0 |      74.5 |        11.5 |          3.8 |             0.8 |          1.1 |       2.2
 ```
 
+###TABLE ELEVEN: Percentage of voters in each party code, by distance category
 ```
-TABLE ELEVEN: Percentage of voters in each party code, by distance category
  party | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 -------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
  CST   |            0.0 |         0.3 |        4.7 |      74.4 |        10.2 |          2.5 |             0.8 |          0.8 |       6.1
@@ -143,8 +143,8 @@ TABLE ELEVEN: Percentage of voters in each party code, by distance category
  UNA   |            0.2 |         0.8 |        5.4 |      75.3 |        10.7 |          3.3 |             0.7 |          0.9 |       2.6
 ```
 
+###TABLE TWELVE: Percentage of voters in each OMB MSA delineation, by distance category
 ```
-TABLE TWELVE: Percentage of voters in each OMB MSA delineation, by distance category
   county  | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 ----------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
  rural    |          12339 |       35457 |      46299 |    745680 |      123254 |        74938 |           35297 |        37912 |     42385
@@ -152,8 +152,8 @@ TABLE TWELVE: Percentage of voters in each OMB MSA delineation, by distance cate
  urban    |            175 |        8676 |     212989 |   3039148 |      364076 |        66069 |            9403 |        16879 |     68368
 ```
 
+###TABLE TWELVE: Percentage of voters in each Commerce economic tier, by distance category
 ```
-TABLE TWELVE: Percentage of voters in each Commerce economic tier, by distance category
   county  | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 ----------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
  rural    |            1.1 |         3.1 |        4.0 |      64.3 |        10.6 |          6.5 |             3.0 |          3.3 |       3.7
@@ -161,8 +161,8 @@ TABLE TWELVE: Percentage of voters in each Commerce economic tier, by distance c
  urban    |            0.0 |         0.2 |        5.6 |      80.2 |         9.6 |          1.7 |             0.2 |          0.4 |       1.8
 ```
 
+###TABLE THIRTEEN: Voter stats by ethnic code
 ```
-TABLE THIRTEEN: Voter stats by ethnic code
  ethnic_code | avg_dist | std_dist | max_dist | min_dist 
 -------------+----------+----------+----------+----------
  HL          |     0.23 |     1.92 |     17.5 |    -14.5
@@ -170,8 +170,8 @@ TABLE THIRTEEN: Voter stats by ethnic code
  NL          |     0.37 |     2.26 |     18.5 |    -16.5
 ```
 
+###TABLE FOURTEEN: Voters more than 1 mile further away, by ethnic code
 ```
-TABLE FOURTEEN: Voters more than 1 mile further away, by ethnic code
  ethnic_code | moved_voters | registered_voters | moved_pct 
 -------------+--------------+-------------------+-----------
  HL          |        19748 |            175702 |      11.2
@@ -179,8 +179,8 @@ TABLE FOURTEEN: Voters more than 1 mile further away, by ethnic code
  UN          |       146440 |           1200157 |      12.2
 ```
 
+###TABLE FIFTEEN: Percentage of voters in each ethnic code, by distance category
 ```
-TABLE FIFTEEN: Percentage of voters in each ethnic code, by distance category
  ethnic_code | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 -------------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
  HL          |            0.2 |         0.7 |        6.1 |      75.8 |        10.8 |          2.5 |             0.4 |          0.5 |       3.0
