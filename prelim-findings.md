@@ -5,6 +5,8 @@ add the one in five
 
 Based on our preliminary analysis so far, it appears voters in poor and rural counties have been the most disproportionately impacted by the changes in early voting locations in 2018, compared to 2014 ([Read the full methodology here](readme.md)).
 
+It's important
+
 About 2 in 10 rural voters are more than a mile further away from their closest early voting location, compared to more than 1 in 10 urban voters. That means rural voters are twice as likely to be one mile or further away from their closest early voting location in 2018 ([t1](#t1)).
 
 About 1 in 4 voters in the state's poorest counties are more than a mile further away, compared. That means poor voters are more than 3 times as likely as urban voters to be one mile or further away in 2018 ([t2](#t2)).
@@ -124,45 +126,45 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
 
 ### TABLE TEN<a name="t10"></a>: Percentage of voters in each race code, by distance category
 ```
-  race | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
--------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- A     |            0.1 |         0.3 |        6.1 |      81.4 |         6.9 |          1.3 |             0.2 |          0.2 |       3.5
- B     |            0.3 |         0.7 |        5.6 |      76.7 |        10.1 |          2.6 |             0.9 |          0.8 |       2.1
- I     |            1.4 |         7.9 |        6.1 |      68.5 |         6.2 |          2.6 |             0.3 |          3.1 |       3.7
- M     |            0.1 |         0.5 |        5.7 |      78.0 |         8.9 |          2.3 |             0.4 |          0.4 |       3.5
- O     |            0.2 |         0.8 |        5.7 |      76.9 |        10.4 |          2.4 |             0.4 |          0.5 |       2.5
- U     |            0.1 |         0.5 |        6.3 |      76.5 |         9.1 |          2.5 |             0.5 |          0.6 |       3.7
- W     |            0.2 |         0.8 |        5.0 |      74.5 |        11.5 |          3.8 |             0.8 |          1.1 |       2.2
+ race | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
+------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
+ A    |            0.1 |         0.3 |        6.1 |      83.5 |         5.1 |          1.1 |             0.2 |          0.2 |       3.5
+ B    |            0.3 |         0.7 |        5.6 |      79.3 |         8.0 |          2.3 |             0.9 |          0.8 |       2.1
+ I    |            1.4 |         7.9 |        6.1 |      70.4 |         4.9 |          2.2 |             0.3 |          3.1 |       3.7
+ M    |            0.1 |         0.5 |        5.7 |      80.4 |         7.0 |          2.0 |             0.4 |          0.4 |       3.5
+ O    |            0.2 |         0.8 |        5.7 |      79.8 |         8.0 |          2.1 |             0.4 |          0.5 |       2.5
+ U    |            0.1 |         0.5 |        6.3 |      79.1 |         7.0 |          2.1 |             0.5 |          0.6 |       3.7
+ W    |            0.2 |         0.8 |        5.0 |      77.7 |         9.0 |          3.3 |             0.8 |          1.1 |       2.2
 ```
 
 ### TABLE ELEVEN<a name="t11"></a>: Percentage of voters in each party code, by distance category
 ```
  party | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 -------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- CST   |            0.0 |         0.3 |        4.7 |      74.4 |        10.2 |          2.5 |             0.8 |          0.8 |       6.1
- DEM   |            0.3 |         0.8 |        5.3 |      76.3 |        10.3 |          3.0 |             0.9 |          0.9 |       2.0
- GRE   |            0.0 |         1.2 |        6.9 |      72.8 |         9.6 |          2.5 |             0.4 |          0.4 |       6.2
- LIB   |            0.2 |         0.7 |        5.3 |      76.0 |        10.3 |          3.1 |             0.5 |          0.9 |       2.8
- REP   |            0.1 |         0.9 |        4.9 |      73.7 |        11.9 |          4.0 |             0.9 |          1.1 |       2.2
- UNA   |            0.2 |         0.8 |        5.4 |      75.3 |        10.7 |          3.3 |             0.7 |          0.9 |       2.6
+ CST   |            0.0 |         0.3 |        4.7 |      77.1 |         8.3 |          1.9 |             0.8 |          0.8 |       6.1
+ DEM   |            0.3 |         0.8 |        5.3 |      79.1 |         8.1 |          2.5 |             0.9 |          0.9 |       2.0
+ GRE   |            0.0 |         1.2 |        6.9 |      74.8 |         8.3 |          1.9 |             0.4 |          0.4 |       6.2
+ LIB   |            0.2 |         0.7 |        5.3 |      78.9 |         8.1 |          2.5 |             0.5 |          0.9 |       2.8
+ REP   |            0.1 |         0.9 |        4.9 |      76.9 |         9.5 |          3.5 |             0.9 |          1.1 |       2.2
+ UNA   |            0.2 |         0.8 |        5.4 |      78.3 |         8.4 |          2.9 |             0.7 |          0.9 |       2.6
 ```
 
 ### TABLE TWELVE<a name="t12"></a>: Percentage of voters in each OMB MSA delineation, by distance category
 ```
   county  | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 ----------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- rural    |            1.1 |         3.1 |        4.0 |      64.3 |        10.6 |          6.5 |             3.0 |          3.3 |       3.7
- suburban |            0.0 |         0.6 |        5.2 |      70.9 |        14.5 |          5.1 |             0.6 |          0.5 |       2.3
- urban    |            0.0 |         0.2 |        5.6 |      80.2 |         9.6 |          1.7 |             0.2 |          0.4 |       1.8
+ rural    |            1.1 |         3.1 |        4.0 |      67.0 |         8.9 |          6.0 |             3.0 |          3.3 |       3.7
+ suburban |            0.0 |         0.6 |        5.2 |      74.2 |        12.3 |          4.2 |             0.6 |          0.5 |       2.3
+ urban    |            0.0 |         0.2 |        5.6 |      83.2 |         7.0 |          1.5 |             0.2 |          0.4 |       1.8
 ```
 
 ### TABLE THIRTEEN<a name="t13"></a>: Percentage of voters in each Commerce economic tier, by distance category
 ```
  county | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 --------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- 1      |            1.5 |         2.8 |        3.9 |      57.7 |        12.7 |          8.7 |             4.0 |          4.6 |       3.2
- 2      |            0.0 |         0.6 |        5.3 |      70.7 |        14.8 |          3.6 |             0.8 |          1.1 |       3.1
- 3      |            0.2 |         0.7 |        5.4 |      81.5 |         7.5 |          2.5 |             0.4 |          0.3 |       1.5
+ 1      |            1.5 |         2.8 |        3.9 |      60.3 |        14.4 |          7.8 |             4.0 |          4.6 |       3.2
+ 2      |            0.0 |         0.6 |        5.3 |      74.5 |        15.3 |          3.1 |             0.8 |          1.1 |       3.1
+ 3      |            0.2 |         0.7 |        5.4 |      83.8 |         8.0 |          2.0 |             0.4 |          0.3 |       1.5
 ```
 
 ### TABLE FOURTEEN<a name="t14"></a>: Voter stats by ethnic code
@@ -187,9 +189,9 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
 ```
  ethnic_code | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 -------------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- HL          |            0.2 |         0.7 |        6.1 |      75.8 |        10.8 |          2.5 |             0.4 |          0.5 |       3.0
- NL          |            0.2 |         0.9 |        5.1 |      75.1 |        11.0 |          3.4 |             0.9 |          1.0 |       2.1
- UN          |            0.1 |         0.6 |        5.6 |      75.6 |        10.5 |          3.2 |             0.7 |          0.8 |       2.8
+ HL          |            0.2 |         0.7 |        6.1 |      78.7 |         8.2 |          2.2 |             0.4 |          0.5 |       3.0
+ NL          |            0.2 |         0.9 |        5.1 |      78.1 |         8.7 |          3.0 |             0.9 |          1.0 |       2.1
+ UN          |            0.1 |         0.6 |        5.6 |      78.4 |         8.3 |          2.8 |             0.7 |          0.8 |       2.8
 ```
 
 **_PLEASE NOTE: These findings are preliminary and still subject to review and change._**

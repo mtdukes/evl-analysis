@@ -796,9 +796,9 @@ SELECT party_cd AS party,
 SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END) AS "closer_than_10",
 SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END) AS "5_10_closer",
 SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END) AS "1_5_closer",
-SUM(CASE WHEN dist_diff >= -1 AND dist_diff < 1 THEN 1 ELSE 0 END) AS "no change",
-SUM(CASE WHEN dist_diff >= 1 AND dist_diff < 5 THEN 1 ELSE 0 END) AS "1_5_further",
-SUM(CASE WHEN dist_diff >= 5 AND dist_diff < 10 THEN 1 ELSE 0 END) AS "5_10_further",
+SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END) AS "no change",
+SUM(CASE WHEN dist_diff > 1 AND dist_diff <= 5 THEN 1 ELSE 0 END) AS "1_5_further",
+SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END) AS "5_10_further",
 SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END) AS "further_than_10",
 SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END) AS out_of_range,
 SUM(coord_null) AS no_coords
@@ -808,43 +808,43 @@ GROUP BY party_cd;
 /*
  party | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 -------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- CST   |              0 |           1 |         17 |       270 |          37 |            9 |               3 |            3 |        22
- DEM   |           6091 |       19220 |     129537 |   1849376 |      250189 |        71524 |           21374 |        22527 |     48875
- GRE   |              0 |           6 |         36 |       378 |          50 |           13 |               2 |            2 |        32
- LIB   |             67 |         242 |       1822 |     25969 |        3526 |         1044 |             182 |          293 |       968
- REP   |           2856 |       17174 |      94734 |   1416035 |      229591 |        76455 |           16682 |        21879 |     42884
- UNA   |           3626 |       15936 |     109919 |   1547542 |      220069 |        68378 |           14916 |        17621 |     52864
+ CST   |              0 |           1 |         17 |       280 |          30 |            7 |               3 |            3 |        22
+ DEM   |           6091 |       19220 |     129537 |   1917722 |      195849 |        61708 |           21374 |        22527 |     48875
+ GRE   |              0 |           6 |         36 |       388 |          43 |           10 |               2 |            2 |        32
+ LIB   |             67 |         242 |       1822 |     26959 |        2766 |          863 |             182 |          293 |       968
+ REP   |           2856 |       17174 |      94734 |   1477298 |      181856 |        66484 |           16682 |        21879 |     42884
+ UNA   |           3626 |       15936 |     109919 |   1607997 |      172256 |        59040 |           14916 |        17621 |     52864
 (6 rows)
 
-Time: 34324.165 ms (00:34.324)
+Time: 43456.147 ms (00:43.456)
 */
 
 -- View as a percentage of the party_cd population
 SELECT party_cd AS party,
-ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(party_cd)::numeric,3)*100::numeric,1) AS "closer_than_10",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(party_cd)::numeric,3)*100::numeric,1) AS "5_10_closer",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(party_cd)::numeric,3)*100::numeric,1) AS "1_5_closer",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff < 1 THEN 1 ELSE 0 END)/count(party_cd)::numeric,3)*100::numeric,1) AS "no change",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= 1 AND dist_diff < 5 THEN 1 ELSE 0 END)/count(party_cd)::numeric,3)*100::numeric,1) AS "1_5_further",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= 5 AND dist_diff < 10 THEN 1 ELSE 0 END)/count(party_cd)::numeric,3)*100::numeric,1) AS "5_10_further",
-ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(party_cd)::numeric,3)*100::numeric,1) AS "further_than_10",
-ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(party_cd)::numeric,3)*100::numeric,1) AS out_of_range,
-ROUND(ROUND(SUM(coord_null)/count(party_cd)::numeric,3)*100::numeric,1) AS no_coords
+ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "closer_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "no change",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 1 AND dist_diff <= 5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "further_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS out_of_range,
+ROUND(ROUND(SUM(coord_null)/count(gid)::numeric,3)*100::numeric,1) AS no_coords
 FROM voters_iso
 GROUP BY party_cd;
 
 /*
  party | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 -------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- CST   |            0.0 |         0.3 |        4.7 |      74.4 |        10.2 |          2.5 |             0.8 |          0.8 |       6.1
- DEM   |            0.3 |         0.8 |        5.3 |      76.3 |        10.3 |          3.0 |             0.9 |          0.9 |       2.0
- GRE   |            0.0 |         1.2 |        6.9 |      72.8 |         9.6 |          2.5 |             0.4 |          0.4 |       6.2
- LIB   |            0.2 |         0.7 |        5.3 |      76.0 |        10.3 |          3.1 |             0.5 |          0.9 |       2.8
- REP   |            0.1 |         0.9 |        4.9 |      73.7 |        11.9 |          4.0 |             0.9 |          1.1 |       2.2
- UNA   |            0.2 |         0.8 |        5.4 |      75.3 |        10.7 |          3.3 |             0.7 |          0.9 |       2.6
+ CST   |            0.0 |         0.3 |        4.7 |      77.1 |         8.3 |          1.9 |             0.8 |          0.8 |       6.1
+ DEM   |            0.3 |         0.8 |        5.3 |      79.1 |         8.1 |          2.5 |             0.9 |          0.9 |       2.0
+ GRE   |            0.0 |         1.2 |        6.9 |      74.8 |         8.3 |          1.9 |             0.4 |          0.4 |       6.2
+ LIB   |            0.2 |         0.7 |        5.3 |      78.9 |         8.1 |          2.5 |             0.5 |          0.9 |       2.8
+ REP   |            0.1 |         0.9 |        4.9 |      76.9 |         9.5 |          3.5 |             0.9 |          1.1 |       2.2
+ UNA   |            0.2 |         0.8 |        5.4 |      78.3 |         8.4 |          2.9 |             0.7 |          0.9 |       2.6
 (6 rows)
 
-Time: 36968.567 ms (00:36.969)
+Time: 44457.311 ms (00:44.457)
 */
 
 -- Count the frequency of bins for each race subgroup
@@ -852,9 +852,9 @@ SELECT race_code AS race,
 SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END) AS "closer_than_10",
 SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END) AS "5_10_closer",
 SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END) AS "1_5_closer",
-SUM(CASE WHEN dist_diff >= -1 AND dist_diff < 1 THEN 1 ELSE 0 END) AS "no change",
-SUM(CASE WHEN dist_diff >= 1 AND dist_diff < 5 THEN 1 ELSE 0 END) AS "1_5_further",
-SUM(CASE WHEN dist_diff >= 5 AND dist_diff < 10 THEN 1 ELSE 0 END) AS "5_10_further",
+SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END) AS "no change",
+SUM(CASE WHEN dist_diff > 1 AND dist_diff <= 5 THEN 1 ELSE 0 END) AS "1_5_further",
+SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END) AS "5_10_further",
 SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END) AS "further_than_10",
 SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END) AS out_of_range,
 SUM(coord_null) AS no_coords
@@ -864,54 +864,54 @@ GROUP BY race_code;
 /*
  race | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 ------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- A    |             50 |         300 |       5375 |     72204 |        6104 |         1142 |             153 |          205 |      3078
- B    |           4011 |        9897 |      79119 |   1078057 |      141563 |        37263 |           13330 |        10964 |     29561
- I    |            715 |        3944 |       3018 |     34134 |        3089 |         1311 |             167 |         1544 |      1852
- M    |             65 |         233 |       2543 |     34655 |        3974 |         1026 |             183 |          189 |      1540
- O    |            424 |        1462 |      10396 |    140906 |       19124 |         4422 |             801 |          889 |      4524
- U    |            277 |        1266 |      15362 |    186812 |       22224 |         6158 |            1330 |         1384 |      9116
- W    |           7098 |       35477 |     220252 |   3292802 |      507384 |       166101 |           37195 |        47150 |     95974
+ A    |             50 |         300 |       5375 |     74050 |        4505 |          935 |             153 |          205 |      3078
+ B    |           4011 |        9897 |      79119 |   1114452 |      112983 |        31860 |           13330 |        10964 |     29561
+ I    |            715 |        3944 |       3018 |     35064 |        2435 |         1073 |             167 |         1544 |      1852
+ M    |             65 |         233 |       2543 |     35735 |        3098 |          867 |             183 |          189 |      1540
+ O    |            424 |        1462 |      10396 |    146164 |       14658 |         3805 |             801 |          889 |      4524
+ U    |            277 |        1266 |      15362 |    193253 |       16989 |         5194 |            1330 |         1384 |      9116
+ W    |           7098 |       35477 |     220252 |   3431926 |      398132 |       144378 |           37195 |        47150 |     95974
 (7 rows)
 
-Time: 35783.816 ms (00:35.784)
+Time: 44202.917 ms (00:44.203)
 */
 
 -- View as a percentage of the race_code population
 SELECT race_code AS race,
-ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(race_code)::numeric,3)*100::numeric,1) AS "closer_than_10",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(race_code)::numeric,3)*100::numeric,1) AS "5_10_closer",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(race_code)::numeric,3)*100::numeric,1) AS "1_5_closer",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff < 1 THEN 1 ELSE 0 END)/count(race_code)::numeric,3)*100::numeric,1) AS "no change",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= 1 AND dist_diff < 5 THEN 1 ELSE 0 END)/count(race_code)::numeric,3)*100::numeric,1) AS "1_5_further",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= 5 AND dist_diff < 10 THEN 1 ELSE 0 END)/count(race_code)::numeric,3)*100::numeric,1) AS "5_10_further",
-ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(race_code)::numeric,3)*100::numeric,1) AS "further_than_10",
-ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(race_code)::numeric,3)*100::numeric,1) AS out_of_range,
-ROUND(ROUND(SUM(coord_null)/count(race_code)::numeric,3)*100::numeric,1) AS no_coords
+ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "closer_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "no change",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 1 AND dist_diff <= 5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "further_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS out_of_range,
+ROUND(ROUND(SUM(coord_null)/count(gid)::numeric,3)*100::numeric,1) AS no_coords
 FROM voters_iso
 GROUP BY race_code;
 
 /*
-  race | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
--------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- A     |            0.1 |         0.3 |        6.1 |      81.4 |         6.9 |          1.3 |             0.2 |          0.2 |       3.5
- B     |            0.3 |         0.7 |        5.6 |      76.7 |        10.1 |          2.6 |             0.9 |          0.8 |       2.1
- I     |            1.4 |         7.9 |        6.1 |      68.5 |         6.2 |          2.6 |             0.3 |          3.1 |       3.7
- M     |            0.1 |         0.5 |        5.7 |      78.0 |         8.9 |          2.3 |             0.4 |          0.4 |       3.5
- O     |            0.2 |         0.8 |        5.7 |      76.9 |        10.4 |          2.4 |             0.4 |          0.5 |       2.5
- U     |            0.1 |         0.5 |        6.3 |      76.5 |         9.1 |          2.5 |             0.5 |          0.6 |       3.7
- W     |            0.2 |         0.8 |        5.0 |      74.5 |        11.5 |          3.8 |             0.8 |          1.1 |       2.2
+ race | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
+------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
+ A    |            0.1 |         0.3 |        6.1 |      83.5 |         5.1 |          1.1 |             0.2 |          0.2 |       3.5
+ B    |            0.3 |         0.7 |        5.6 |      79.3 |         8.0 |          2.3 |             0.9 |          0.8 |       2.1
+ I    |            1.4 |         7.9 |        6.1 |      70.4 |         4.9 |          2.2 |             0.3 |          3.1 |       3.7
+ M    |            0.1 |         0.5 |        5.7 |      80.4 |         7.0 |          2.0 |             0.4 |          0.4 |       3.5
+ O    |            0.2 |         0.8 |        5.7 |      79.8 |         8.0 |          2.1 |             0.4 |          0.5 |       2.5
+ U    |            0.1 |         0.5 |        6.3 |      79.1 |         7.0 |          2.1 |             0.5 |          0.6 |       3.7
+ W    |            0.2 |         0.8 |        5.0 |      77.7 |         9.0 |          3.3 |             0.8 |          1.1 |       2.2
 (7 rows)
 
-Time: 34814.091 ms (00:34.814)
+Time: 44731.408 ms (00:44.731)
 */
 
 SELECT county_desc AS county,
 SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END) AS "closer_than_10",
 SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END) AS "5_10_closer",
 SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END) AS "1_5_closer",
-SUM(CASE WHEN dist_diff >= -1 AND dist_diff < 1 THEN 1 ELSE 0 END) AS "no change",
-SUM(CASE WHEN dist_diff >= 1 AND dist_diff < 5 THEN 1 ELSE 0 END) AS "1_5_further",
-SUM(CASE WHEN dist_diff >= 5 AND dist_diff < 10 THEN 1 ELSE 0 END) AS "5_10_further",
+SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END) AS "no change",
+SUM(CASE WHEN dist_diff > 1 AND dist_diff <= 5 THEN 1 ELSE 0 END) AS "1_5_further",
+SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END) AS "5_10_further",
 SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END) AS "further_than_10",
 SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END) AS out_of_range,
 SUM(coord_null) AS no_coords
@@ -921,168 +921,170 @@ GROUP BY county_desc;
 /*
     county    | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 --------------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- ALAMANCE     |              0 |           0 |        421 |     87068 |       13393 |            0 |               0 |          122 |       866
+ ALAMANCE     |              0 |           0 |        421 |     94627 |        5834 |            0 |               0 |          122 |       866
  ALEXANDER    |              0 |        1550 |       2271 |     20477 |           0 |            0 |               0 |           35 |        45
- ASHE         |              0 |           0 |          0 |     12806 |        1299 |         1864 |             110 |         1017 |      1093
- BERTIE       |              0 |           4 |         65 |      4725 |         942 |         1627 |            3195 |         1908 |      1173
- BLADEN       |             12 |          38 |        278 |      9085 |        1954 |         4255 |            3164 |         3564 |       492
- BRUNSWICK    |              0 |          11 |      11436 |     64378 |       15071 |         8678 |              28 |          595 |      1487
- BUNCOMBE     |              4 |          64 |       8807 |    144019 |       36561 |         3079 |              61 |          659 |      2815
- BURKE        |              0 |        1967 |       8036 |     47058 |          71 |            0 |               0 |          587 |       634
- CABARRUS     |              0 |           0 |      17950 |    105057 |        8461 |            1 |               0 |            7 |      5418
- CALDWELL     |              0 |          22 |         63 |     46991 |        4662 |           97 |               5 |          738 |      2023
- CARTERET     |             61 |         178 |        474 |     45528 |        2595 |          491 |             318 |         1780 |      1119
- CASWELL      |              0 |           0 |          0 |      5623 |        4042 |         2620 |            3034 |          101 |        82
- CATAWBA      |             24 |          67 |        540 |     98977 |        4819 |          109 |               0 |            0 |       324
- CHATHAM      |             19 |         249 |       6373 |     31340 |        9006 |         3064 |               0 |          321 |      3048
- CLEVELAND    |              0 |          16 |       6993 |     30140 |       25033 |           58 |               0 |         1874 |       371
- COLUMBUS     |             11 |         415 |       3767 |     14412 |       11645 |         5219 |               7 |         1476 |       413
- CRAVEN       |             87 |         135 |       7259 |     49213 |        8164 |         2767 |              52 |         1262 |       446
- CUMBERLAND   |             57 |        3492 |       4398 |    125264 |       55574 |        23542 |             100 |         1619 |      3846
- DARE         |              4 |         124 |        113 |     19882 |        1979 |         1486 |              42 |         1171 |      5142
- DAVIDSON     |              1 |         772 |       8844 |     93631 |         561 |            7 |               0 |           76 |      4479
- DAVIE        |              0 |          13 |         52 |     19429 |        4432 |         3304 |              11 |            5 |      2517
- DUPLIN       |              0 |           0 |        332 |     21216 |        6560 |            5 |               0 |         1716 |       402
- DURHAM       |              0 |         660 |      34301 |    182850 |          21 |            0 |               0 |            1 |      8267
- FORSYTH      |              0 |        1880 |      44194 |    143359 |       59857 |          244 |               0 |            0 |     10205
- GASTON       |              0 |           0 |        529 |    111797 |       31741 |            4 |               0 |            0 |       513
- GATES        |              0 |           2 |        391 |      2444 |        4944 |          123 |               0 |          561 |       298
- GRANVILLE    |             24 |        5357 |       2850 |     28912 |         864 |           22 |               0 |          226 |       308
- GUILFORD     |              0 |           0 |      16382 |    300783 |       33246 |         8363 |               0 |            2 |     14611
- HALIFAX      |              7 |           8 |        217 |      3064 |        6624 |        12430 |            7868 |         6404 |       823
- HARNETT      |              3 |          20 |        272 |     59241 |        3200 |         5213 |              15 |          256 |      7069
- HENDERSON    |              0 |           0 |          3 |     35442 |       23062 |        18566 |            3024 |          265 |      2476
- HYDE         |              0 |          68 |        240 |      1902 |         123 |            7 |               0 |          950 |       131
- IREDELL      |             14 |         125 |        557 |     97465 |       12114 |         6991 |            1922 |          909 |       288
- JACKSON      |              6 |          67 |       2468 |     22189 |        1322 |           36 |               1 |          245 |      2239
- JOHNSTON     |              8 |          10 |       1151 |     84591 |       17294 |        13608 |            3266 |         1166 |      6061
- LENOIR       |              0 |          28 |       6435 |     29406 |        2335 |           78 |               0 |            0 |       326
- LINCOLN      |             68 |           0 |        372 |     42026 |        9502 |         5252 |             100 |            0 |       193
- MADISON      |              2 |          12 |        391 |     10307 |        5546 |          139 |               0 |          424 |       282
- MCDOWELL     |              0 |           0 |          0 |     18783 |        8388 |         1454 |              12 |          237 |       581
- MECKLENBURG  |              0 |          55 |      40271 |    591464 |       89598 |         8620 |              11 |            0 |      4027
- MITCHELL     |              3 |          19 |        372 |      9460 |         727 |           59 |              17 |          214 |       167
- MONTGOMERY   |              3 |        4012 |        843 |      9293 |         451 |           65 |               2 |         1263 |       597
- MOORE        |           4900 |       16074 |      15684 |     15891 |        2832 |         3605 |            2840 |         3387 |      2076
- NASH         |              0 |           0 |        349 |     52086 |        3614 |         4508 |            1202 |         3184 |       696
- NEW HANOVER  |              2 |           6 |        159 |    166380 |         239 |           58 |              33 |          378 |      2948
- NORTHAMPTON  |              2 |           3 |        183 |      8990 |        1475 |          663 |            1459 |          381 |      1059
- ONSLOW       |              0 |           8 |       2033 |     64469 |       14025 |         8858 |            4526 |         7880 |      6153
- ORANGE       |              0 |         126 |       9795 |     97129 |        4095 |         2297 |               0 |           19 |       584
- PENDER       |              0 |         152 |        428 |     28976 |        4591 |         5833 |              22 |          773 |       503
- PERSON       |              0 |           0 |          0 |     19070 |        2787 |         4506 |               2 |           67 |       205
- PITT         |              0 |          10 |        351 |     98889 |       11476 |         1856 |            3413 |          272 |      7398
- POLK         |              0 |           0 |          0 |      8593 |        4003 |         1490 |             934 |           65 |       594
- RANDOLPH     |             14 |        5483 |      11635 |     46067 |       24439 |          621 |               3 |         2041 |      1497
- RICHMOND     |              0 |          10 |         65 |     15884 |        6601 |         6319 |              17 |         1033 |       298
- ROBESON      |           7303 |        8864 |       3012 |     52373 |          38 |            0 |               0 |         2298 |      2825
- ROCKINGHAM   |              0 |          57 |       6741 |     43146 |        9779 |           70 |               0 |            0 |       374
- ROWAN        |              0 |          10 |       6981 |     51954 |       27277 |         5648 |              81 |          240 |      2862
- RUTHERFORD   |              0 |           0 |        137 |     31887 |        5873 |         6305 |              26 |          601 |       187
- SAMPSON      |              0 |          78 |        368 |     26248 |        2109 |         2379 |            2791 |         2163 |      1663
- STANLY       |              0 |           5 |        111 |     18308 |        5144 |         6588 |            6613 |         2097 |      2450
- SURRY        |              0 |           1 |        120 |     39904 |        1037 |         1503 |            2790 |          192 |       203
- TRANSYLVANIA |              0 |          40 |        105 |     18307 |        1233 |         3446 |              15 |          468 |      2302
- UNION        |              0 |           0 |        672 |    147145 |        5525 |            1 |               0 |           49 |      2346
- VANCE        |              0 |           9 |        122 |     22878 |        4901 |            0 |               0 |          154 |      2115
- WAKE         |              0 |          58 |      23893 |    703655 |        3127 |           20 |               0 |           43 |      2062
- WATAUGA      |              0 |           0 |          7 |     45356 |          23 |            0 |               0 |           18 |      1545
- WAYNE        |              1 |         126 |      11737 |     39494 |       21534 |         1651 |               0 |          113 |       463
- WILKES       |              0 |          18 |        366 |     30579 |        5006 |         5562 |              27 |          435 |       648
- WILSON       |              0 |           1 |        273 |     51568 |        2825 |           86 |               0 |           10 |      1327
- YANCEY       |              0 |           0 |         27 |     13247 |          71 |            3 |               0 |          208 |       565
+ ASHE         |              0 |           0 |          0 |     12960 |        1423 |         2499 |             110 |         1017 |      1093
+ BERTIE       |              0 |           4 |         65 |      4905 |         930 |         1993 |            3195 |         1908 |      1173
+ BLADEN       |             12 |          38 |        278 |      9303 |        2060 |         4118 |            3164 |         3564 |       492
+ BRUNSWICK    |              0 |          11 |      11436 |     67280 |       12876 |         7976 |              28 |          595 |      1487
+ BUNCOMBE     |              4 |          64 |       8807 |    157273 |       24802 |         1584 |              61 |          659 |      2815
+ BURKE        |              0 |        1967 |       8036 |     47120 |           9 |            0 |               0 |          587 |       634
+ CABARRUS     |              0 |           0 |      17950 |    108638 |        4880 |            1 |               0 |            7 |      5418
+ CALDWELL     |              0 |          22 |         63 |     51034 |         662 |           56 |               5 |          738 |      2023
+ CARTERET     |             61 |         178 |        474 |     45778 |        2422 |          436 |             318 |         1780 |      1119
+ CASWELL      |              0 |           0 |          0 |      6007 |        3909 |         2564 |            3034 |          101 |        82
+ CATAWBA      |             24 |          67 |        540 |    103251 |         546 |          111 |               0 |            0 |       324
+ CHATHAM      |             19 |         249 |       6373 |     34144 |        7060 |         2206 |               0 |          321 |      3048
+ CLEVELAND    |              0 |          16 |       6993 |     37842 |       17348 |           41 |               0 |         1874 |       371
+ COLUMBUS     |             11 |         415 |       3767 |     16940 |        9892 |         4457 |               7 |         1476 |       413
+ CRAVEN       |             87 |         135 |       7259 |     50515 |        7901 |         1729 |              52 |         1262 |       446
+ CUMBERLAND   |             57 |        3492 |       4398 |    133406 |       51454 |        19541 |             100 |         1619 |      3846
+ DARE         |              4 |         124 |        113 |     20100 |        1943 |         1315 |              42 |         1171 |      5142
+ DAVIDSON     |              1 |         772 |       8844 |     93854 |         338 |            7 |               0 |           76 |      4479
+ DAVIE        |              0 |          13 |         52 |     20076 |        4153 |         2938 |              11 |            5 |      2517
+ DUPLIN       |              0 |           0 |        332 |     27020 |         760 |            1 |               0 |         1716 |       402
+ DURHAM       |              0 |         660 |      34301 |    182871 |           0 |            0 |               0 |            1 |      8267
+ FORSYTH      |              0 |        1880 |      44194 |    159385 |       43930 |          145 |               0 |            0 |     10205
+ GASTON       |              0 |           0 |        529 |    118124 |       25418 |            0 |               0 |            0 |       513
+ GATES        |              0 |           2 |        391 |      3834 |        3655 |           22 |               0 |          561 |       298
+ GRANVILLE    |             24 |        5357 |       2850 |     29227 |         556 |           15 |               0 |          226 |       308
+ GUILFORD     |              0 |           0 |      16382 |    311951 |       22614 |         7828 |               0 |            2 |     14611
+ HALIFAX      |              7 |           8 |        217 |      3502 |        6971 |        13126 |            7868 |         6404 |       823
+ HARNETT      |              3 |          20 |        272 |     59649 |        3227 |         5059 |              15 |          256 |      7069
+ HENDERSON    |              0 |           0 |          3 |     39011 |       21253 |        18987 |            3024 |          265 |      2476
+ HYDE         |              0 |          68 |        240 |      1974 |          58 |            0 |               0 |          950 |       131
+ IREDELL      |             14 |         125 |        557 |     99986 |       10493 |         6209 |            1922 |          909 |       288
+ JACKSON      |              6 |          67 |       2468 |     23286 |         225 |           36 |               1 |          245 |      2239
+ JOHNSTON     |              8 |          10 |       1151 |     86816 |       16960 |        12022 |            3266 |         1166 |      6061
+ LENOIR       |              0 |          28 |       6435 |     30696 |        1058 |           65 |               0 |            0 |       326
+ LINCOLN      |             68 |           0 |        372 |     43682 |        9675 |         3637 |             100 |            0 |       193
+ MADISON      |              2 |          12 |        391 |     11713 |        4188 |           91 |               0 |          424 |       282
+ MCDOWELL     |              0 |           0 |          0 |     20001 |        8265 |          359 |              12 |          237 |       581
+ MECKLENBURG  |              0 |          55 |      40271 |    623816 |       58719 |         7160 |              11 |            0 |      4027
+ MITCHELL     |              3 |          19 |        372 |     10058 |         144 |           51 |              17 |          214 |       167
+ MONTGOMERY   |              3 |        4012 |        843 |      9381 |         410 |           18 |               2 |         1263 |       597
+ MOORE        |           4900 |       16074 |      15684 |     16611 |        2281 |         3884 |            2840 |         3387 |      2076
+ NASH         |              0 |           0 |        349 |     52923 |        3131 |         5223 |            1202 |         3184 |       696
+ NEW HANOVER  |              2 |           6 |        159 |    166525 |         113 |           39 |              33 |          378 |      2948
+ NORTHAMPTON  |              2 |           3 |        183 |      9475 |        1071 |          972 |            1459 |          381 |      1059
+ ONSLOW       |              0 |           8 |       2033 |     66294 |       13236 |         8234 |            4526 |         7880 |      6153
+ ORANGE       |              0 |         126 |       9795 |     98147 |        3719 |         1661 |               0 |           19 |       584
+ PENDER       |              0 |         152 |        428 |     30319 |        8158 |          950 |              22 |          773 |       503
+ PERSON       |              0 |           0 |          0 |     19351 |        2759 |         4328 |               2 |           67 |       205
+ PITT         |              0 |          10 |        351 |    101000 |        9534 |         2104 |            3413 |          272 |      7398
+ POLK         |              0 |           0 |          0 |      8880 |        4032 |         1523 |             934 |           65 |       594
+ RANDOLPH     |             14 |        5483 |      11635 |     48318 |       22558 |          254 |               3 |         2041 |      1497
+ RICHMOND     |              0 |          10 |         65 |     16490 |        9942 |         2492 |              17 |         1033 |       298
+ ROBESON      |           7303 |        8864 |       3012 |     52409 |           2 |            0 |               0 |         2298 |      2825
+ ROCKINGHAM   |              0 |          57 |       6741 |     50511 |        2427 |           57 |               0 |            0 |       374
+ ROWAN        |              0 |          10 |       6981 |     56478 |       25193 |         3405 |              81 |          240 |      2862
+ RUTHERFORD   |              0 |           0 |        137 |     33155 |        5276 |         5747 |              26 |          601 |       187
+ SAMPSON      |              0 |          78 |        368 |     26723 |        1944 |         2452 |            2791 |         2163 |      1663
+ STANLY       |              0 |           5 |        111 |     18840 |        5407 |         6126 |            6613 |         2097 |      2450
+ SURRY        |              0 |           1 |        120 |     40146 |         876 |         1488 |            2790 |          192 |       203
+ TRANSYLVANIA |              0 |          40 |        105 |     18436 |        1482 |         3093 |              15 |          468 |      2302
+ UNION        |              0 |           0 |        672 |    151222 |        1449 |            0 |               0 |           49 |      2346
+ VANCE        |              0 |           9 |        122 |     24036 |        3743 |            0 |               0 |          154 |      2115
+ WAKE         |              0 |          58 |      23893 |    705495 |        1287 |           20 |               0 |           43 |      2062
+ WATAUGA      |              0 |           0 |          7 |     45374 |           5 |            0 |               0 |           18 |      1545
+ WAYNE        |              1 |         126 |      11737 |     44225 |       18128 |          332 |               0 |          113 |       463
+ WILKES       |              0 |          18 |        366 |     31195 |        4866 |         5238 |              27 |          435 |       648
+ WILSON       |              0 |           1 |        273 |     53283 |        1111 |           85 |               0 |           10 |      1327
+ YANCEY       |              0 |           0 |         27 |     13270 |          49 |            2 |               0 |          208 |       565
 (70 rows)
+
+Time: 45220.256 ms (00:45.220)
 */
 
 SELECT county_desc AS county,
-ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(county_desc)::numeric,3)*100::numeric,1) AS "closer_than_10",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(county_desc)::numeric,3)*100::numeric,1) AS "5_10_closer",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(county_desc)::numeric,3)*100::numeric,1) AS "1_5_closer",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff < 1 THEN 1 ELSE 0 END)/count(county_desc)::numeric,3)*100::numeric,1) AS "no change",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= 1 AND dist_diff < 5 THEN 1 ELSE 0 END)/count(county_desc)::numeric,3)*100::numeric,1) AS "1_5_further",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= 5 AND dist_diff < 10 THEN 1 ELSE 0 END)/count(county_desc)::numeric,3)*100::numeric,1) AS "5_10_further",
-ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(county_desc)::numeric,3)*100::numeric,1) AS "further_than_10",
-ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(county_desc)::numeric,3)*100::numeric,1) AS out_of_range,
-ROUND(ROUND(SUM(coord_null)/count(county_desc)::numeric,3)*100::numeric,1) AS no_coords
+ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "closer_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "no change",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 1 AND dist_diff <= 5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "further_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS out_of_range,
+ROUND(ROUND(SUM(coord_null)/count(gid)::numeric,3)*100::numeric,1) AS no_coords
 FROM voters_iso
 GROUP BY county_desc;
 
 /*
     county    | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 --------------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- ALAMANCE     |            0.0 |         0.0 |        0.4 |      85.5 |        13.1 |          0.0 |             0.0 |          0.1 |       0.9
+ ALAMANCE     |            0.0 |         0.0 |        0.4 |      92.9 |         5.7 |          0.0 |             0.0 |          0.1 |       0.9
  ALEXANDER    |            0.0 |         6.4 |        9.3 |      84.0 |         0.0 |          0.0 |             0.0 |          0.1 |       0.2
- ASHE         |            0.0 |         0.0 |        0.0 |      67.0 |         6.8 |          9.8 |             0.6 |          5.3 |       5.7
- BERTIE       |            0.0 |         0.0 |        0.5 |      33.3 |         6.6 |         11.5 |            22.5 |         13.5 |       8.3
- BLADEN       |            0.1 |         0.2 |        1.2 |      39.5 |         8.5 |         18.5 |            13.7 |         15.5 |       2.1
- BRUNSWICK    |            0.0 |         0.0 |       11.2 |      63.3 |        14.8 |          8.5 |             0.0 |          0.6 |       1.5
- BUNCOMBE     |            0.0 |         0.0 |        4.5 |      73.5 |        18.6 |          1.6 |             0.0 |          0.3 |       1.4
- BURKE        |            0.0 |         3.4 |       13.8 |      80.6 |         0.1 |          0.0 |             0.0 |          1.0 |       1.1
- CABARRUS     |            0.0 |         0.0 |       13.1 |      76.7 |         6.2 |          0.0 |             0.0 |          0.0 |       4.0
- CALDWELL     |            0.0 |         0.0 |        0.1 |      86.1 |         8.5 |          0.2 |             0.0 |          1.4 |       3.7
- CARTERET     |            0.1 |         0.3 |        0.9 |      86.6 |         4.9 |          0.9 |             0.6 |          3.4 |       2.1
- CASWELL      |            0.0 |         0.0 |        0.0 |      35.8 |        25.8 |         16.7 |            19.3 |          0.6 |       0.5
- CATAWBA      |            0.0 |         0.1 |        0.5 |      94.4 |         4.6 |          0.1 |             0.0 |          0.0 |       0.3
- CHATHAM      |            0.0 |         0.5 |       11.9 |      58.7 |        16.9 |          5.7 |             0.0 |          0.6 |       5.7
- CLEVELAND    |            0.0 |         0.0 |       10.8 |      46.7 |        38.8 |          0.1 |             0.0 |          2.9 |       0.6
- COLUMBUS     |            0.0 |         1.1 |       10.1 |      38.6 |        31.2 |         14.0 |             0.0 |          3.9 |       1.1
- CRAVEN       |            0.1 |         0.2 |       10.5 |      70.9 |        11.8 |          4.0 |             0.1 |          1.8 |       0.6
- CUMBERLAND   |            0.0 |         1.6 |        2.0 |      57.5 |        25.5 |         10.8 |             0.0 |          0.7 |       1.8
- DARE         |            0.0 |         0.4 |        0.4 |      66.4 |         6.6 |          5.0 |             0.1 |          3.9 |      17.2
- DAVIDSON     |            0.0 |         0.7 |        8.2 |      86.4 |         0.5 |          0.0 |             0.0 |          0.1 |       4.1
- DAVIE        |            0.0 |         0.0 |        0.2 |      65.3 |        14.9 |         11.1 |             0.0 |          0.0 |       8.5
- DUPLIN       |            0.0 |         0.0 |        1.1 |      70.2 |        21.7 |          0.0 |             0.0 |          5.7 |       1.3
+ ASHE         |            0.0 |         0.0 |        0.0 |      67.8 |         7.4 |         13.1 |             0.6 |          5.3 |       5.7
+ BERTIE       |            0.0 |         0.0 |        0.5 |      34.6 |         6.6 |         14.1 |            22.5 |         13.5 |       8.3
+ BLADEN       |            0.1 |         0.2 |        1.2 |      40.4 |         8.9 |         17.9 |            13.7 |         15.5 |       2.1
+ BRUNSWICK    |            0.0 |         0.0 |       11.2 |      66.2 |        12.7 |          7.8 |             0.0 |          0.6 |       1.5
+ BUNCOMBE     |            0.0 |         0.0 |        4.5 |      80.2 |        12.6 |          0.8 |             0.0 |          0.3 |       1.4
+ BURKE        |            0.0 |         3.4 |       13.8 |      80.7 |         0.0 |          0.0 |             0.0 |          1.0 |       1.1
+ CABARRUS     |            0.0 |         0.0 |       13.1 |      79.4 |         3.6 |          0.0 |             0.0 |          0.0 |       4.0
+ CALDWELL     |            0.0 |         0.0 |        0.1 |      93.5 |         1.2 |          0.1 |             0.0 |          1.4 |       3.7
+ CARTERET     |            0.1 |         0.3 |        0.9 |      87.1 |         4.6 |          0.8 |             0.6 |          3.4 |       2.1
+ CASWELL      |            0.0 |         0.0 |        0.0 |      38.3 |        24.9 |         16.3 |            19.3 |          0.6 |       0.5
+ CATAWBA      |            0.0 |         0.1 |        0.5 |      98.5 |         0.5 |          0.1 |             0.0 |          0.0 |       0.3
+ CHATHAM      |            0.0 |         0.5 |       11.9 |      63.9 |        13.2 |          4.1 |             0.0 |          0.6 |       5.7
+ CLEVELAND    |            0.0 |         0.0 |       10.8 |      58.7 |        26.9 |          0.1 |             0.0 |          2.9 |       0.6
+ COLUMBUS     |            0.0 |         1.1 |       10.1 |      45.3 |        26.5 |         11.9 |             0.0 |          3.9 |       1.1
+ CRAVEN       |            0.1 |         0.2 |       10.5 |      72.8 |        11.4 |          2.5 |             0.1 |          1.8 |       0.6
+ CUMBERLAND   |            0.0 |         1.6 |        2.0 |      61.2 |        23.6 |          9.0 |             0.0 |          0.7 |       1.8
+ DARE         |            0.0 |         0.4 |        0.4 |      67.1 |         6.5 |          4.4 |             0.1 |          3.9 |      17.2
+ DAVIDSON     |            0.0 |         0.7 |        8.2 |      86.6 |         0.3 |          0.0 |             0.0 |          0.1 |       4.1
+ DAVIE        |            0.0 |         0.0 |        0.2 |      67.4 |        14.0 |          9.9 |             0.0 |          0.0 |       8.5
+ DUPLIN       |            0.0 |         0.0 |        1.1 |      89.4 |         2.5 |          0.0 |             0.0 |          5.7 |       1.3
  DURHAM       |            0.0 |         0.3 |       15.2 |      80.9 |         0.0 |          0.0 |             0.0 |          0.0 |       3.7
- FORSYTH      |            0.0 |         0.7 |       17.0 |      55.2 |        23.0 |          0.1 |             0.0 |          0.0 |       3.9
- GASTON       |            0.0 |         0.0 |        0.4 |      77.3 |        22.0 |          0.0 |             0.0 |          0.0 |       0.4
- GATES        |            0.0 |         0.0 |        4.5 |      27.9 |        56.4 |          1.4 |             0.0 |          6.4 |       3.4
- GRANVILLE    |            0.1 |        13.9 |        7.4 |      75.0 |         2.2 |          0.1 |             0.0 |          0.6 |       0.8
- GUILFORD     |            0.0 |         0.0 |        4.4 |      80.6 |         8.9 |          2.2 |             0.0 |          0.0 |       3.9
- HALIFAX      |            0.0 |         0.0 |        0.6 |       7.9 |        17.0 |         31.9 |            20.2 |         16.5 |       2.1
- HARNETT      |            0.0 |         0.0 |        0.4 |      78.4 |         4.2 |          6.9 |             0.0 |          0.3 |       9.4
- HENDERSON    |            0.0 |         0.0 |        0.0 |      41.7 |        27.1 |         21.8 |             3.6 |          0.3 |       2.9
- HYDE         |            0.0 |         2.0 |        7.0 |      55.6 |         3.6 |          0.2 |             0.0 |         27.8 |       3.8
- IREDELL      |            0.0 |         0.1 |        0.5 |      80.9 |        10.1 |          5.8 |             1.6 |          0.8 |       0.2
- JACKSON      |            0.0 |         0.2 |        8.6 |      77.7 |         4.6 |          0.1 |             0.0 |          0.9 |       7.8
- JOHNSTON     |            0.0 |         0.0 |        0.9 |      66.4 |        13.6 |         10.7 |             2.6 |          0.9 |       4.8
- LENOIR       |            0.0 |         0.1 |       16.7 |      76.2 |         6.0 |          0.2 |             0.0 |          0.0 |       0.8
- LINCOLN      |            0.1 |         0.0 |        0.6 |      72.8 |        16.5 |          9.1 |             0.2 |          0.0 |       0.3
- MADISON      |            0.0 |         0.1 |        2.3 |      60.3 |        32.4 |          0.8 |             0.0 |          2.5 |       1.6
- MCDOWELL     |            0.0 |         0.0 |        0.0 |      63.8 |        28.5 |          4.9 |             0.0 |          0.8 |       2.0
- MECKLENBURG  |            0.0 |         0.0 |        5.5 |      80.6 |        12.2 |          1.2 |             0.0 |          0.0 |       0.5
- MITCHELL     |            0.0 |         0.2 |        3.4 |      85.6 |         6.6 |          0.5 |             0.2 |          1.9 |       1.5
- MONTGOMERY   |            0.0 |        24.3 |        5.1 |      56.2 |         2.7 |          0.4 |             0.0 |          7.6 |       3.6
- MOORE        |            7.2 |        23.7 |       23.2 |      23.5 |         4.2 |          5.3 |             4.2 |          5.0 |       3.1
- NASH         |            0.0 |         0.0 |        0.5 |      78.1 |         5.4 |          6.8 |             1.8 |          4.8 |       1.0
+ FORSYTH      |            0.0 |         0.7 |       17.0 |      61.4 |        16.9 |          0.1 |             0.0 |          0.0 |       3.9
+ GASTON       |            0.0 |         0.0 |        0.4 |      81.7 |        17.6 |          0.0 |             0.0 |          0.0 |       0.4
+ GATES        |            0.0 |         0.0 |        4.5 |      43.8 |        41.7 |          0.3 |             0.0 |          6.4 |       3.4
+ GRANVILLE    |            0.1 |        13.9 |        7.4 |      75.8 |         1.4 |          0.0 |             0.0 |          0.6 |       0.8
+ GUILFORD     |            0.0 |         0.0 |        4.4 |      83.5 |         6.1 |          2.1 |             0.0 |          0.0 |       3.9
+ HALIFAX      |            0.0 |         0.0 |        0.6 |       9.0 |        17.9 |         33.7 |            20.2 |         16.5 |       2.1
+ HARNETT      |            0.0 |         0.0 |        0.4 |      78.9 |         4.3 |          6.7 |             0.0 |          0.3 |       9.4
+ HENDERSON    |            0.0 |         0.0 |        0.0 |      45.9 |        25.0 |         22.3 |             3.6 |          0.3 |       2.9
+ HYDE         |            0.0 |         2.0 |        7.0 |      57.7 |         1.7 |          0.0 |             0.0 |         27.8 |       3.8
+ IREDELL      |            0.0 |         0.1 |        0.5 |      83.0 |         8.7 |          5.2 |             1.6 |          0.8 |       0.2
+ JACKSON      |            0.0 |         0.2 |        8.6 |      81.5 |         0.8 |          0.1 |             0.0 |          0.9 |       7.8
+ JOHNSTON     |            0.0 |         0.0 |        0.9 |      68.1 |        13.3 |          9.4 |             2.6 |          0.9 |       4.8
+ LENOIR       |            0.0 |         0.1 |       16.7 |      79.5 |         2.7 |          0.2 |             0.0 |          0.0 |       0.8
+ LINCOLN      |            0.1 |         0.0 |        0.6 |      75.7 |        16.8 |          6.3 |             0.2 |          0.0 |       0.3
+ MADISON      |            0.0 |         0.1 |        2.3 |      68.5 |        24.5 |          0.5 |             0.0 |          2.5 |       1.6
+ MCDOWELL     |            0.0 |         0.0 |        0.0 |      67.9 |        28.1 |          1.2 |             0.0 |          0.8 |       2.0
+ MECKLENBURG  |            0.0 |         0.0 |        5.5 |      85.0 |         8.0 |          1.0 |             0.0 |          0.0 |       0.5
+ MITCHELL     |            0.0 |         0.2 |        3.4 |      91.1 |         1.3 |          0.5 |             0.2 |          1.9 |       1.5
+ MONTGOMERY   |            0.0 |        24.3 |        5.1 |      56.8 |         2.5 |          0.1 |             0.0 |          7.6 |       3.6
+ MOORE        |            7.2 |        23.7 |       23.2 |      24.5 |         3.4 |          5.7 |             4.2 |          5.0 |       3.1
+ NASH         |            0.0 |         0.0 |        0.5 |      79.3 |         4.7 |          7.8 |             1.8 |          4.8 |       1.0
  NEW HANOVER  |            0.0 |         0.0 |        0.1 |      97.8 |         0.1 |          0.0 |             0.0 |          0.2 |       1.7
- NORTHAMPTON  |            0.0 |         0.0 |        1.3 |      61.6 |        10.1 |          4.5 |            10.0 |          2.6 |       7.3
- ONSLOW       |            0.0 |         0.0 |        1.9 |      59.5 |        12.9 |          8.2 |             4.2 |          7.3 |       5.7
- ORANGE       |            0.0 |         0.1 |        8.6 |      85.2 |         3.6 |          2.0 |             0.0 |          0.0 |       0.5
- PENDER       |            0.0 |         0.4 |        1.0 |      70.2 |        11.1 |         14.1 |             0.1 |          1.9 |       1.2
- PERSON       |            0.0 |         0.0 |        0.0 |      71.4 |        10.4 |         16.9 |             0.0 |          0.3 |       0.8
- PITT         |            0.0 |         0.0 |        0.3 |      79.7 |         9.2 |          1.5 |             2.8 |          0.2 |       6.0
- POLK         |            0.0 |         0.0 |        0.0 |      53.6 |        25.0 |          9.3 |             5.8 |          0.4 |       3.7
- RANDOLPH     |            0.0 |         6.0 |       12.7 |      50.2 |        26.6 |          0.7 |             0.0 |          2.2 |       1.6
- RICHMOND     |            0.0 |         0.0 |        0.2 |      52.3 |        21.8 |         20.8 |             0.1 |          3.4 |       1.0
+ NORTHAMPTON  |            0.0 |         0.0 |        1.3 |      64.9 |         7.3 |          6.7 |            10.0 |          2.6 |       7.3
+ ONSLOW       |            0.0 |         0.0 |        1.9 |      61.2 |        12.2 |          7.6 |             4.2 |          7.3 |       5.7
+ ORANGE       |            0.0 |         0.1 |        8.6 |      86.1 |         3.3 |          1.5 |             0.0 |          0.0 |       0.5
+ PENDER       |            0.0 |         0.4 |        1.0 |      73.4 |        19.8 |          2.3 |             0.1 |          1.9 |       1.2
+ PERSON       |            0.0 |         0.0 |        0.0 |      72.4 |        10.3 |         16.2 |             0.0 |          0.3 |       0.8
+ PITT         |            0.0 |         0.0 |        0.3 |      81.4 |         7.7 |          1.7 |             2.8 |          0.2 |       6.0
+ POLK         |            0.0 |         0.0 |        0.0 |      55.4 |        25.2 |          9.5 |             5.8 |          0.4 |       3.7
+ RANDOLPH     |            0.0 |         6.0 |       12.7 |      52.6 |        24.6 |          0.3 |             0.0 |          2.2 |       1.6
+ RICHMOND     |            0.0 |         0.0 |        0.2 |      54.3 |        32.8 |          8.2 |             0.1 |          3.4 |       1.0
  ROBESON      |            9.5 |        11.6 |        3.9 |      68.3 |         0.0 |          0.0 |             0.0 |          3.0 |       3.7
- ROCKINGHAM   |            0.0 |         0.1 |       11.2 |      71.7 |        16.3 |          0.1 |             0.0 |          0.0 |       0.6
- ROWAN        |            0.0 |         0.0 |        7.3 |      54.5 |        28.6 |          5.9 |             0.1 |          0.3 |       3.0
- RUTHERFORD   |            0.0 |         0.0 |        0.3 |      70.7 |        13.0 |         14.0 |             0.1 |          1.3 |       0.4
- SAMPSON      |            0.0 |         0.2 |        1.0 |      68.7 |         5.5 |          6.2 |             7.3 |          5.7 |       4.4
- STANLY       |            0.0 |         0.0 |        0.3 |      44.0 |        12.4 |         15.8 |            15.9 |          5.0 |       5.9
- SURRY        |            0.0 |         0.0 |        0.3 |      87.1 |         2.3 |          3.3 |             6.1 |          0.4 |       0.4
- TRANSYLVANIA |            0.0 |         0.2 |        0.4 |      70.6 |         4.8 |         13.3 |             0.1 |          1.8 |       8.9
- UNION        |            0.0 |         0.0 |        0.4 |      94.5 |         3.5 |          0.0 |             0.0 |          0.0 |       1.5
- VANCE        |            0.0 |         0.0 |        0.4 |      75.8 |        16.2 |          0.0 |             0.0 |          0.5 |       7.0
- WAKE         |            0.0 |         0.0 |        3.3 |      96.0 |         0.4 |          0.0 |             0.0 |          0.0 |       0.3
+ ROCKINGHAM   |            0.0 |         0.1 |       11.2 |      84.0 |         4.0 |          0.1 |             0.0 |          0.0 |       0.6
+ ROWAN        |            0.0 |         0.0 |        7.3 |      59.3 |        26.4 |          3.6 |             0.1 |          0.3 |       3.0
+ RUTHERFORD   |            0.0 |         0.0 |        0.3 |      73.5 |        11.7 |         12.7 |             0.1 |          1.3 |       0.4
+ SAMPSON      |            0.0 |         0.2 |        1.0 |      70.0 |         5.1 |          6.4 |             7.3 |          5.7 |       4.4
+ STANLY       |            0.0 |         0.0 |        0.3 |      45.2 |        13.0 |         14.7 |            15.9 |          5.0 |       5.9
+ SURRY        |            0.0 |         0.0 |        0.3 |      87.6 |         1.9 |          3.2 |             6.1 |          0.4 |       0.4
+ TRANSYLVANIA |            0.0 |         0.2 |        0.4 |      71.1 |         5.7 |         11.9 |             0.1 |          1.8 |       8.9
+ UNION        |            0.0 |         0.0 |        0.4 |      97.1 |         0.9 |          0.0 |             0.0 |          0.0 |       1.5
+ VANCE        |            0.0 |         0.0 |        0.4 |      79.6 |        12.4 |          0.0 |             0.0 |          0.5 |       7.0
+ WAKE         |            0.0 |         0.0 |        3.3 |      96.3 |         0.2 |          0.0 |             0.0 |          0.0 |       0.3
  WATAUGA      |            0.0 |         0.0 |        0.0 |      96.6 |         0.0 |          0.0 |             0.0 |          0.0 |       3.3
- WAYNE        |            0.0 |         0.2 |       15.6 |      52.6 |        28.7 |          2.2 |             0.0 |          0.2 |       0.6
- WILKES       |            0.0 |         0.0 |        0.9 |      71.5 |        11.7 |         13.0 |             0.1 |          1.0 |       1.5
- WILSON       |            0.0 |         0.0 |        0.5 |      91.9 |         5.0 |          0.2 |             0.0 |          0.0 |       2.4
- YANCEY       |            0.0 |         0.0 |        0.2 |      93.8 |         0.5 |          0.0 |             0.0 |          1.5 |       4.0
+ WAYNE        |            0.0 |         0.2 |       15.6 |      58.9 |        24.1 |          0.4 |             0.0 |          0.2 |       0.6
+ WILKES       |            0.0 |         0.0 |        0.9 |      72.9 |        11.4 |         12.2 |             0.1 |          1.0 |       1.5
+ WILSON       |            0.0 |         0.0 |        0.5 |      95.0 |         2.0 |          0.2 |             0.0 |          0.0 |       2.4
+ YANCEY       |            0.0 |         0.0 |        0.2 |      94.0 |         0.3 |          0.0 |             0.0 |          1.5 |       4.0
 (70 rows)
 
-Time: 35361.814 ms (00:35.362)
+Time: 43234.934 ms (00:43.235)
 */
 
 -- create new table
@@ -1160,9 +1162,9 @@ SELECT omb AS county,
 SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END) AS "closer_than_10",
 SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END) AS "5_10_closer",
 SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END) AS "1_5_closer",
-SUM(CASE WHEN dist_diff >= -1 AND dist_diff < 1 THEN 1 ELSE 0 END) AS "no change",
-SUM(CASE WHEN dist_diff >= 1 AND dist_diff < 5 THEN 1 ELSE 0 END) AS "1_5_further",
-SUM(CASE WHEN dist_diff >= 5 AND dist_diff < 10 THEN 1 ELSE 0 END) AS "5_10_further",
+SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END) AS "no change",
+SUM(CASE WHEN dist_diff > 1 AND dist_diff <= 5 THEN 1 ELSE 0 END) AS "1_5_further",
+SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END) AS "5_10_further",
 SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END) AS "further_than_10",
 SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END) AS out_of_range,
 SUM(coord_null) AS no_coords
@@ -1172,37 +1174,37 @@ GROUP BY omb;
 /*
   county  | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 ----------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- rural    |          12339 |       35457 |      46299 |    745680 |      123254 |        74938 |           35297 |        37912 |     42385
- suburban |            126 |        8446 |      76777 |   1054742 |      216132 |        76416 |            8459 |         7534 |     34892
- urban    |            175 |        8676 |     212989 |   3039148 |      364076 |        66069 |            9403 |        16879 |     68368
+ rural    |          12339 |       35457 |      46299 |    776952 |      103688 |        69255 |           35297 |        37912 |     42385
+ suburban |            126 |        8446 |      76777 |   1103834 |      183493 |        63090 |            8459 |         7534 |     34892
+ urban    |            175 |        8676 |     212989 |   3149858 |      265619 |        55767 |            9403 |        16879 |     68368
 (3 rows)
 
-Time: 44112.616 ms (00:44.113)
+Time: 46745.142 ms (00:46.745)
 */
 
 -- binning by pct and omb
 SELECT omb AS county,
-ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(omb)::numeric,3)*100::numeric,1) AS "closer_than_10",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(omb)::numeric,3)*100::numeric,1) AS "5_10_closer",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(omb)::numeric,3)*100::numeric,1) AS "1_5_closer",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff < 1 THEN 1 ELSE 0 END)/count(omb)::numeric,3)*100::numeric,1) AS "no change",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= 1 AND dist_diff < 5 THEN 1 ELSE 0 END)/count(omb)::numeric,3)*100::numeric,1) AS "1_5_further",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= 5 AND dist_diff < 10 THEN 1 ELSE 0 END)/count(omb)::numeric,3)*100::numeric,1) AS "5_10_further",
-ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(omb)::numeric,3)*100::numeric,1) AS "further_than_10",
-ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(omb)::numeric,3)*100::numeric,1) AS out_of_range,
-ROUND(ROUND(SUM(coord_null)/count(omb)::numeric,3)*100::numeric,1) AS no_coords
+ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "closer_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "no change",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 1 AND dist_diff <= 5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "further_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS out_of_range,
+ROUND(ROUND(SUM(coord_null)/count(gid)::numeric,3)*100::numeric,1) AS no_coords
 FROM voters_iso
 GROUP BY omb;
 
 /*
   county  | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 ----------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- rural    |            1.1 |         3.1 |        4.0 |      64.3 |        10.6 |          6.5 |             3.0 |          3.3 |       3.7
- suburban |            0.0 |         0.6 |        5.2 |      70.9 |        14.5 |          5.1 |             0.6 |          0.5 |       2.3
- urban    |            0.0 |         0.2 |        5.6 |      80.2 |         9.6 |          1.7 |             0.2 |          0.4 |       1.8
+ rural    |            1.1 |         3.1 |        4.0 |      67.0 |         8.9 |          6.0 |             3.0 |          3.3 |       3.7
+ suburban |            0.0 |         0.6 |        5.2 |      74.2 |        12.3 |          4.2 |             0.6 |          0.5 |       2.3
+ urban    |            0.0 |         0.2 |        5.6 |      83.2 |         7.0 |          1.5 |             0.2 |          0.4 |       1.8
 (3 rows)
 
-Time: 45595.728 ms (00:45.596)
+Time: 43028.714 ms (00:43.029)
 */
 
 -- let's look at the breakdown by tier designation
@@ -1231,9 +1233,9 @@ SELECT tier AS county,
 SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END) AS "closer_than_10",
 SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END) AS "5_10_closer",
 SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END) AS "1_5_closer",
-SUM(CASE WHEN dist_diff >= -1 AND dist_diff < 1 THEN 1 ELSE 0 END) AS "no change",
-SUM(CASE WHEN dist_diff >= 1 AND dist_diff < 5 THEN 1 ELSE 0 END) AS "1_5_further",
-SUM(CASE WHEN dist_diff >= 5 AND dist_diff < 10 THEN 1 ELSE 0 END) AS "5_10_further",
+SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END) AS "no change",
+SUM(CASE WHEN dist_diff > 1 AND dist_diff <= 5 THEN 1 ELSE 0 END) AS "1_5_further",
+SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END) AS "5_10_further",
 SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END) AS "further_than_10",
 SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END) AS out_of_range,
 SUM(coord_null) AS no_coords
@@ -1243,37 +1245,37 @@ GROUP BY tier;
 /*
  county | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 --------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- 1      |           7347 |       13547 |      18485 |    275634 |       60669 |        41328 |           18888 |        22081 |     15482
- 2      |            193 |       15907 |     142397 |   1906332 |      398212 |        95909 |           22646 |        29648 |     82592
- 3      |           5100 |       23125 |     175183 |   2657604 |      244581 |        80186 |           11625 |        10596 |     47571
+ 1      |           7347 |       13547 |      18485 |    287878 |       56566 |        37102 |           18888 |        22081 |     15482
+ 2      |            193 |       15907 |     142397 |   2010551 |      309526 |        84223 |           22646 |        29648 |     82592
+ 3      |           5100 |       23125 |     175183 |   2732215 |      186708 |        66787 |           11625 |        10596 |     47571
 (3 rows)
 
-Time: 42056.092 ms (00:42.056)
+Time: 42576.725 ms (00:42.577)
 */
 
 -- binning by pct and tier
 SELECT tier AS county,
-ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(tier)::numeric,3)*100::numeric,1) AS "closer_than_10",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(tier)::numeric,3)*100::numeric,1) AS "5_10_closer",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(tier)::numeric,3)*100::numeric,1) AS "1_5_closer",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff < 1 THEN 1 ELSE 0 END)/count(tier)::numeric,3)*100::numeric,1) AS "no change",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= 1 AND dist_diff < 5 THEN 1 ELSE 0 END)/count(tier)::numeric,3)*100::numeric,1) AS "1_5_further",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= 5 AND dist_diff < 10 THEN 1 ELSE 0 END)/count(tier)::numeric,3)*100::numeric,1) AS "5_10_further",
-ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(tier)::numeric,3)*100::numeric,1) AS "further_than_10",
-ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(tier)::numeric,3)*100::numeric,1) AS out_of_range,
-ROUND(ROUND(SUM(coord_null)/count(tier)::numeric,3)*100::numeric,1) AS no_coords
+ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "closer_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "no change",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= 1 AND dist_diff <= 5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "further_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS out_of_range,
+ROUND(ROUND(SUM(coord_null)/count(gid)::numeric,3)*100::numeric,1) AS no_coords
 FROM voters_iso
 GROUP BY tier;
 
 /*
  county | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 --------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- 1      |            1.5 |         2.8 |        3.9 |      57.7 |        12.7 |          8.7 |             4.0 |          4.6 |       3.2
- 2      |            0.0 |         0.6 |        5.3 |      70.7 |        14.8 |          3.6 |             0.8 |          1.1 |       3.1
- 3      |            0.2 |         0.7 |        5.4 |      81.5 |         7.5 |          2.5 |             0.4 |          0.3 |       1.5
+ 1      |            1.5 |         2.8 |        3.9 |      60.3 |        14.4 |          7.8 |             4.0 |          4.6 |       3.2
+ 2      |            0.0 |         0.6 |        5.3 |      74.5 |        15.3 |          3.1 |             0.8 |          1.1 |       3.1
+ 3      |            0.2 |         0.7 |        5.4 |      83.8 |         8.0 |          2.0 |             0.4 |          0.3 |       1.5
 (3 rows)
 
-Time: 43358.768 ms (00:43.359)
+Time: 43466.286 ms (00:43.466)
 */
 
 -- how many voters were affected in each county?
@@ -1405,27 +1407,27 @@ GROUP BY ethnic_code;
 */
 
 SELECT ethnic_code,
-ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(ethnic_code)::numeric,3)*100::numeric,1) AS "closer_than_10",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(ethnic_code)::numeric,3)*100::numeric,1) AS "5_10_closer",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(ethnic_code)::numeric,3)*100::numeric,1) AS "1_5_closer",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff < 1 THEN 1 ELSE 0 END)/count(ethnic_code)::numeric,3)*100::numeric,1) AS "no change",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= 1 AND dist_diff < 5 THEN 1 ELSE 0 END)/count(ethnic_code)::numeric,3)*100::numeric,1) AS "1_5_further",
-ROUND(ROUND(SUM(CASE WHEN dist_diff >= 5 AND dist_diff < 10 THEN 1 ELSE 0 END)/count(ethnic_code)::numeric,3)*100::numeric,1) AS "5_10_further",
-ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(ethnic_code)::numeric,3)*100::numeric,1) AS "further_than_10",
-ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(ethnic_code)::numeric,3)*100::numeric,1) AS out_of_range,
-ROUND(ROUND(SUM(coord_null)/count(ethnic_code)::numeric,3)*100::numeric,1) AS no_coords
+ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "closer_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "no change",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 1 AND dist_diff <= 5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "further_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS out_of_range,
+ROUND(ROUND(SUM(coord_null)/count(gid)::numeric,3)*100::numeric,1) AS no_coords
 FROM voters_iso
 GROUP BY ethnic_code;
 
 /*
- county | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
---------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- HL     |            0.2 |         0.7 |        6.1 |      75.8 |        10.8 |          2.5 |             0.4 |          0.5 |       3.0
- NL     |            0.2 |         0.9 |        5.1 |      75.1 |        11.0 |          3.4 |             0.9 |          1.0 |       2.1
- UN     |            0.1 |         0.6 |        5.6 |      75.6 |        10.5 |          3.2 |             0.7 |          0.8 |       2.8
+ ethnic_code | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
+-------------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
+ HL          |            0.2 |         0.7 |        6.1 |      78.7 |         8.2 |          2.2 |             0.4 |          0.5 |       3.0
+ NL          |            0.2 |         0.9 |        5.1 |      78.1 |         8.7 |          3.0 |             0.9 |          1.0 |       2.1
+ UN          |            0.1 |         0.6 |        5.6 |      78.4 |         8.3 |          2.8 |             0.7 |          0.8 |       2.8
 (3 rows)
 
-Time: 39816.446 ms (00:39.816)
+Time: 43573.523 ms (00:43.574)
 */
 
 -- show me county stats and nulls
@@ -1513,4 +1515,256 @@ ORDER BY avg_dist DESC;
  ROBESON      |    -2.42 |     4.31 |             3.7 |     3.0 |           6.7
  MOORE        |    -2.66 |     5.65 |             3.1 |     5.0 |           8.1
 (70 rows)
+*/
+
+-- let's look at averages without anything less than 1
+SELECT round(AVG(dist_diff)::numeric,2) as avg_dist,
+round(STDDEV_POP(dist_diff)::numeric,2) as std_dist,
+MAX(dist_diff) as max_dist,
+MIN(dist_diff) as min_dist
+FROM voters_iso
+WHERE dist_diff > 1;
+
+/*
+ avg_dist | std_dist | max_dist | min_dist 
+----------+----------+----------+----------
+     4.43 |     3.13 |     18.5 |      1.5
+*/
+
+-- now by race without anything less than 1
+SELECT race_code, round(AVG(dist_diff)::numeric,2) as avg_dist,
+round(STDDEV_POP(dist_diff)::numeric,2) as std_dist,
+MAX(dist_diff) as max_dist,
+MIN(dist_diff) as min_dist
+FROM voters_iso
+WHERE dist_diff > 1
+GROUP BY race_code
+ORDER BY avg_dist;
+
+/*
+ race_code | avg_dist | std_dist | max_dist | min_dist 
+-----------+----------+----------+----------+----------
+ A         |     3.45 |     2.50 |     17.5 |      1.5
+ O         |     3.90 |     2.76 |     17.5 |      1.5
+ M         |     3.97 |     2.79 |     17.5 |      1.5
+ U         |     4.20 |     3.04 |     17.5 |      1.5
+ B         |     4.36 |     3.25 |     18.5 |      1.5
+ W         |     4.49 |     3.11 |     18.5 |      1.5
+ I         |     4.56 |     2.81 |       18 |      1.5
+(7 rows)
+
+Time: 42211.927 ms (00:42.212)
+*/
+
+-- by political party without anything less than 1
+SELECT party_cd,
+round(AVG(dist_diff)::numeric,2) as avg_dist,
+round(STDDEV_POP(dist_diff)::numeric,2) as std_dist,
+MAX(dist_diff) as max_dist, MIN(dist_diff) as min_dist
+FROM voters_iso
+WHERE dist_diff > 1
+GROUP BY party_cd
+ORDER BY avg_dist;
+
+/*
+ party_cd | avg_dist | std_dist | max_dist | min_dist 
+----------+----------+----------+----------+----------
+ GRE      |     3.89 |     2.83 |       13 |      1.5
+ LIB      |     4.17 |     2.84 |     17.5 |      1.5
+ CST      |     4.28 |     3.49 |     14.5 |      1.5
+ UNA      |     4.37 |     3.04 |     18.5 |      1.5
+ DEM      |     4.42 |     3.21 |     18.5 |      1.5
+ REP      |     4.49 |     3.12 |     18.5 |      1.5
+(6 rows)
+
+Time: 41921.700 ms (00:41.922)
+*/
+
+-- by omb designation without anything less than 1
+SELECT omb, round(AVG(dist_diff)::numeric,2) as avg_dist,
+round(STDDEV_POP(dist_diff)::numeric,2) as std_dist,
+MAX(dist_diff) as max_dist,
+MIN(dist_diff) as min_dist
+FROM voters_iso
+WHERE dist_diff > 1
+GROUP BY omb
+ORDER BY avg_dist;
+
+/*
+  omb    | avg_dist | std_dist | max_dist | min_dist 
+----------+----------+----------+----------+----------
+ urban    |     3.54 |     2.38 |       16 |      1.5
+ suburban |     4.21 |     2.75 |     18.5 |      1.5
+ rural    |     6.11 |     3.86 |     17.5 |      1.5
+(3 rows)
+
+Time: 43682.898 ms (00:43.683)
+*/
+
+-- by tier without anything less than 1
+SELECT tier, round(AVG(dist_diff)::numeric,2) as avg_dist,
+round(STDDEV_POP(dist_diff)::numeric,2) as std_dist,
+MAX(dist_diff) as max_dist,
+MIN(dist_diff) as min_dist
+FROM voters_iso
+WHERE dist_diff > 1
+GROUP BY tier
+ORDER BY avg_dist;
+
+/*
+ tier | avg_dist | std_dist | max_dist | min_dist 
+------+----------+----------+----------+----------
+ 2    |     4.13 |     2.99 |     17.5 |      1.5
+ 3    |     4.22 |     2.84 |     18.5 |      1.5
+ 1    |     6.03 |     3.71 |       17 |      1.5
+*/
+
+-- let's look at averages without anything between -1 and 1
+SELECT round(AVG(dist_diff)::numeric,2) as avg_dist,
+round(STDDEV_POP(dist_diff)::numeric,2) as std_dist,
+MAX(dist_diff) as max_dist,
+MIN(dist_diff) as min_dist
+FROM voters_iso
+WHERE dist_diff < -1 OR dist_diff > 1;
+
+/*
+ avg_dist | std_dist | max_dist | min_dist 
+----------+----------+----------+----------
+     1.78 |     4.73 |     18.5 |    -16.5
+(1 row)
+
+Time: 41666.379 ms (00:41.666)
+*/
+
+-- by race without anything between -1 and 1
+SELECT race_code, round(AVG(dist_diff)::numeric,2) as avg_dist,
+round(STDDEV_POP(dist_diff)::numeric,2) as std_dist,
+MAX(dist_diff) as max_dist,
+MIN(dist_diff) as min_dist
+FROM voters_iso
+WHERE dist_diff < -1 OR dist_diff > 1
+GROUP BY race_code
+ORDER BY avg_dist;
+
+/*
+ race_code | avg_dist | std_dist | max_dist | min_dist 
+-----------+----------+----------+----------+----------
+ I         |    -2.84 |     5.93 |       18 |    -14.5
+ A         |     0.23 |     3.81 |     17.5 |      -14
+ O         |     1.06 |     4.43 |     17.5 |    -14.5
+ M         |     1.13 |     4.27 |     17.5 |    -13.5
+ U         |     1.21 |     4.40 |     17.5 |    -14.5
+ B         |     1.47 |     4.83 |     18.5 |    -16.5
+ W         |     2.01 |     4.68 |     18.5 |    -16.5
+(7 rows)
+
+Time: 44622.030 ms (00:44.622)
+*/
+
+-- by political party without anything between -1 and 1
+SELECT party_cd,
+round(AVG(dist_diff)::numeric,2) as avg_dist,
+round(STDDEV_POP(dist_diff)::numeric,2) as std_dist,
+MAX(dist_diff) as max_dist, MIN(dist_diff) as min_dist
+FROM voters_iso
+WHERE dist_diff < -1 OR dist_diff > 1
+GROUP BY party_cd
+ORDER BY avg_dist;
+
+/*
+ party_cd | avg_dist | std_dist | max_dist | min_dist 
+----------+----------+----------+----------+----------
+ GRE      |     0.89 |     4.26 |       13 |      -10
+ LIB      |     1.48 |     4.50 |     17.5 |    -15.5
+ DEM      |     1.59 |     4.83 |     18.5 |    -16.5
+ UNA      |     1.70 |     4.65 |     18.5 |    -16.5
+ REP      |     2.06 |     4.70 |     18.5 |      -16
+ CST      |     2.13 |     4.36 |     14.5 |     -5.5
+(6 rows)
+
+Time: 44187.885 ms (00:44.188)
+*/
+
+-- by omb designation without anything between -1 and 1
+SELECT omb, round(AVG(dist_diff)::numeric,2) as avg_dist,
+round(STDDEV_POP(dist_diff)::numeric,2) as std_dist,
+MAX(dist_diff) as max_dist,
+MIN(dist_diff) as min_dist
+FROM voters_iso
+WHERE dist_diff < -1 OR dist_diff > 1
+GROUP BY omb
+ORDER BY avg_dist;
+
+/*
+   omb    | avg_dist | std_dist | max_dist | min_dist 
+----------+----------+----------+----------+----------
+ urban    |     1.05 |     3.64 |       16 |    -14.5
+ suburban |     2.38 |     4.04 |     18.5 |      -16
+ rural    |     2.42 |     6.65 |     17.5 |    -16.5
+(3 rows)
+
+Time: 43878.881 ms (00:43.879)
+*/
+
+-- by tier without anything between -1 and 1
+SELECT tier, round(AVG(dist_diff)::numeric,2) as avg_dist,
+round(STDDEV_POP(dist_diff)::numeric,2) as std_dist,
+MAX(dist_diff) as max_dist,
+MIN(dist_diff) as min_dist
+FROM voters_iso
+WHERE dist_diff < -1 OR dist_diff > 1
+GROUP BY tier
+ORDER BY avg_dist;
+
+/*
+ tier | avg_dist | std_dist | max_dist | min_dist 
+------+----------+----------+----------+----------
+ 3    |     0.94 |     4.57 |     18.5 |      -16
+ 2    |     2.16 |     4.17 |     17.5 |    -14.5
+ 1    |     2.91 |     6.47 |       17 |    -16.5
+(3 rows)
+
+Time: 43847.453 ms (00:43.847)
+*/
+
+-- binning overall by pct
+SELECT ROUND(ROUND(SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "closer_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_closer",
+ROUND(ROUND(SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "no change",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 1 AND dist_diff <= 5 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "1_5_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "5_10_further",
+ROUND(ROUND(SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS "further_than_10",
+ROUND(ROUND(SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END)/count(gid)::numeric,3)*100::numeric,1) AS out_of_range,
+ROUND(ROUND(SUM(coord_null)/count(gid)::numeric,3)*100::numeric,1) AS no_coords
+FROM voters_iso;
+
+/*
+ closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
+            0.2 |         0.8 |        5.2 |      78.2 |         8.6 |          2.9 |             0.8 |          1.0 |       2.3
+(1 row)
+
+Time: 42238.007 ms (00:42.238)
+*/
+
+-- bining by raw number
+SELECT SUM(CASE WHEN dist_diff < -10 THEN 1 ELSE 0 END) AS "closer_than_10",
+SUM(CASE WHEN dist_diff >= -10 AND dist_diff < -5 THEN 1 ELSE 0 END) AS "5_10_closer",
+SUM(CASE WHEN dist_diff >= -5 AND dist_diff < -1 THEN 1 ELSE 0 END) AS "1_5_closer",
+SUM(CASE WHEN dist_diff >= -1 AND dist_diff <= 1 THEN 1 ELSE 0 END) AS "no change",
+SUM(CASE WHEN dist_diff > 1 AND dist_diff <= 5 THEN 1 ELSE 0 END) AS "1_5_further",
+SUM(CASE WHEN dist_diff > 5 AND dist_diff <= 10 THEN 1 ELSE 0 END) AS "5_10_further",
+SUM(CASE WHEN dist_diff > 10 THEN 1 ELSE 0 END) AS "further_than_10",
+SUM(CASE WHEN dist_diff IS NULL AND coord_null = 0 THEN 1 ELSE 0 END) AS out_of_range,
+SUM(coord_null) AS no_coords
+FROM voters_iso;
+
+/*
+ closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
+          12640 |       52579 |     336065 |   5030644 |      552800 |       188112 |           53159 |        62325 |    145645
+(1 row)
+
+Time: 41082.848 ms (00:41.083)
 */
