@@ -3,7 +3,7 @@
 
 Based on our preliminary analysis so far, it appears voters in poor and rural counties have been the most disproportionately impacted by the changes in early voting locations in 2018, compared to 2014 ([Read the full methodology here](readme.md)).
 
-It's important to note, however, that about 78 percent of voters were moved between one mile closer or one mile further away ([t17](#t17)).
+It's important to note, however, that about 78 percent of voters are between one mile closer or one mile further away from their closest early voting location in 2018 than they were in 2014 ([t17](#t17)). But 1 in 10 voters are now further than 1 mile away than they were in 2014.
 
 About 2 in 10 rural voters are more than a mile further away from their closest early voting location, compared to more than 1 in 10 urban voters. That means rural voters are twice as likely to be one mile or further away from their closest early voting location in 2018 ([t1](#t1)).
 
