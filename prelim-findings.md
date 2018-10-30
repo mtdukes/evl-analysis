@@ -1,7 +1,7 @@
 ## Top-level findings
 **_PLEASE NOTE: These findings are preliminary and still subject to review and change._**
 
-Based on our preliminary analysis so far, it appears voters in poor and rural counties have been the most disproportionately impacted by the changes in early voting locations in 2018, compared to 2014
+Based on our preliminary analysis so far, it appears voters in poor and rural counties have been the most disproportionately impacted by the changes in early voting locations in 2018, compared to 2014 ([Read the full methodology here](readme.md)).
 
 Compared to urban voters, rural voters are more than 2 times as likely to be one mile or further away from their closest early voting location in 2018 ([t1](#t1)). Voters in the state's poorest counties are more than 3 times as likely as urban voters to be one mile or further away in 2018 ([t2](#t2)).
 
