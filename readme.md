@@ -1,6 +1,6 @@
 # Early voting location analysis
 
-WRAL News is working to use early voting locations for 2018 and 2014, as well as voter registration data, to gage the potential impact of changes for the midterms. Among those changes is a [2018 law mandating that early voting locations](https://www2.ncleg.net/BillLookUp/2017/s325) be open from 7 a.m. to 7 p.m. on any day they are open. A [subsequent law](https://www2.ncleg.net/BillLookup/2017/H335) restored the last Saturday before early voting.
+WRAL News used early voting locations for 2018 and 2014, as well as voter registration data, to gage the potential impact of changes for the midterms. Among those changes is a [2018 law mandating that early voting locations](https://www2.ncleg.net/BillLookUp/2017/s325) be open from 7 a.m. to 7 p.m. on any day they are open. A [subsequent law](https://www2.ncleg.net/BillLookup/2017/H335) restored the last Saturday before early voting.
 
 Early, or so-called "one-stop," voting locations allow anybody in the county to vote at any location, instead of voting at a specific precinct.
 
@@ -12,11 +12,11 @@ But the [total number of early locations dropped](https://www.propublica.org/art
 
 Yet a question remains: Did the change in early voting locations disproportionately impact any group of voters in particular?
 
-We're working to answer the question using data on more than 7 million registered voters.
+We sought to answer the question using data on more than 7 million registered voters.
 
 ## The data
 
-WRAL News is using the following publicly available data from the State Board of Elections and Ethics Enforcement:
+WRAL News used the following publicly available data from the State Board of Elections and Ethics Enforcement:
 
 * [2018 voter registration file as of Sept. 22, 2018](https://s3.amazonaws.com/dl.ncsbe.gov/data/ncvoter_Statewide.zip). Coordinates in WGS 84 decimal degrees (EPSG:4326).
 * [Latitude/Longitude coordinates for unique NC voter addresses](https://s3.amazonaws.com/dl.ncsbe.gov/ShapeFiles/address_points_sboe.zip)
@@ -33,9 +33,9 @@ python getSites.py
 
 Coordinates were not available for 2014 through this tool, so the bulk of these locations were generated using the [U.S. Census geocoder tool](https://geocoding.geo.census.gov/geocoder/). Addresses that could not be matched were manually researched and recorded using [Google's geocoder tool](https://google-developers.appspot.com/maps/documentation/utils/geocoder/).
 
-In 30 North Carolina counties, there were no changes in early voting locations between 2014 and 2018, so these counties were omitted from the analysis. This left 580 sites for the two midterm elections. Voters in these counties were also omitted from this analysis, leaving 6,433,969 active and inactive voters (both of which are eligible to cast ballots according to state elections officials).
+In 30 North Carolina counties, there were no changes in early voting locations between 2014 and 2018, so these counties were omitted from the analysis. This left 580 sites for the two midterm elections. Voters in these counties were also omitted from this analysis, leaving 6,433,969 active and inactive voters (both of which are eligible to cast ballots, according to state elections officials).
 
-While some early voting locations may have been relocated due to the impact of hurricanes, this analysis considered only the original early voting locations approved by local elections board and the state board.
+While some early voting locations may have been relocated due to the impact of hurricanes Florence or Michael, this analysis considered only the original early voting locations approved by local elections board and the state board.
 
 Latitude and longitude coordinates were then matched to active and inactive registered voters on addresses, city, county and zip using MySQL database software. The query failed to match the addresses of 145,645 voters, a 97.7 percent match rate.
 
@@ -61,6 +61,8 @@ python loadIsochrones.py data/isochrones_lookup.csv
 
 We then used database software to calculate the change in distance from the closest voting location in 2014 and the closest early voting location in 2018 for every active and inactive voter.
 
+Because the driving distances were limited to 20 miles from each voting location, 62,325 voters could not be matched with either a 2014 or 2018 isochrone because they were outside the 20-mile range. This amounts to less than 1 percent of the registered voters in the study for which the difference in driving distance could not be calculated.
+
 Using these values, we can calculate average, median, maximum and standard deviation values for each of the following subroup types defined in the voter registration data:
 
 * Political Party
@@ -70,4 +72,4 @@ Using these values, we can calculate average, median, maximum and standard devia
 In addition to the SBOE-defined subgroups, we can also calculate average, median, maximum and standard deviation values for two types of county geographic designations:
 
 * [Federal Office of Management & Budget classifications of urban, surburban and rural counties](https://www.oldnorthstatepolitics.com/p/blog-page_5.html)
-* [N.C. Department of Commerce 2018 county tier designations](https://www.nccommerce.com/research-publications/incentive-reports/county-tier-designations)
+* [N.C. Department of Commerce 2018 county tier designations](https://www.nccommerce.com/research-publications/incentive-reports/county-tier-designations), which describe the county's level of economic distress from one to three, with three being the least distressed.
