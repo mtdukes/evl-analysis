@@ -1427,3 +1427,90 @@ GROUP BY ethnic_code;
 
 Time: 39816.446 ms (00:39.816)
 */
+
+-- show me county stats and nulls
+SELECT county_desc,
+round(AVG(dist_diff)::numeric,2) as avg_dist,
+round(STDDEV_POP(dist_diff)::numeric,2) as std_dist,
+round(round(SUM(coord_null) / COUNT(gid)::numeric,3)*100::numeric,1) AS pct_null_coords,
+round(round((SUM(CASE WHEN dist_diff IS NULL THEN 1 ELSE 0 END)- SUM(coord_null)) / COUNT(county_desc)::numeric,3)*100::numeric,1) AS pct_oor,
+round(round(SUM(coord_null) / COUNT(gid)::numeric,3)*100::numeric,1) + round(round((SUM(CASE WHEN dist_diff IS NULL THEN 1 ELSE 0 END)- SUM(coord_null)) / COUNT(county_desc)::numeric,3)*100::numeric,1) AS total_invalid
+FROM voters_iso
+GROUP BY county_desc
+ORDER BY avg_dist DESC;
+
+/*
+ county_desc  | avg_dist | std_dist | pct_null_coords | pct_oor | total_invalid 
+--------------+----------+----------+-----------------+---------+---------------
+ HALIFAX      |     6.58 |     4.02 |             2.1 |    16.5 |          18.6
+ BERTIE       |     5.62 |     5.94 |             8.3 |    13.5 |          21.8
+ CASWELL      |     4.45 |     4.81 |             0.5 |     0.6 |           1.1
+ STANLY       |     4.05 |     5.25 |             5.9 |     5.0 |          10.9
+ BLADEN       |     3.94 |     4.85 |             2.1 |    15.5 |          17.6
+ HENDERSON    |     3.07 |     3.49 |             2.9 |     0.3 |           3.2
+ POLK         |     2.50 |     3.46 |             3.7 |     0.4 |           4.1
+ NORTHAMPTON  |     2.22 |     4.45 |             7.3 |     2.6 |           9.9
+ RICHMOND     |     2.04 |     2.75 |             1.0 |     3.4 |           4.4
+ SAMPSON      |     1.77 |     4.07 |             4.4 |     5.7 |          10.1
+ ONSLOW       |     1.67 |     3.29 |             5.7 |     7.3 |          13.0
+ ASHE         |     1.63 |     3.20 |             5.7 |     5.3 |          11.0
+ PERSON       |     1.55 |     2.78 |             0.8 |     0.3 |           1.1
+ JOHNSTON     |     1.48 |     3.02 |             4.8 |     0.9 |           5.7
+ GATES        |     1.44 |     1.97 |             3.4 |     6.4 |           9.8
+ RUTHERFORD   |     1.39 |     2.68 |             0.4 |     1.3 |           1.7
+ WILKES       |     1.29 |     2.66 |             1.5 |     1.0 |           2.5
+ COLUMBUS     |     1.25 |     2.91 |             1.1 |     3.9 |           5.0
+ DAVIE        |     1.25 |     2.30 |             8.5 |     0.0 |           8.5
+ TRANSYLVANIA |     1.24 |     2.86 |             8.9 |     1.8 |          10.7
+ CUMBERLAND   |     1.17 |     2.49 |             1.8 |     0.7 |           2.5
+ SURRY        |     1.16 |     3.58 |             0.4 |     0.4 |           0.8
+ NASH         |     1.07 |     2.72 |             1.0 |     4.8 |           5.8
+ LINCOLN      |     1.02 |     2.22 |             0.3 |     0.0 |           0.3
+ ROWAN        |     0.95 |     2.20 |             3.0 |     0.3 |           3.3
+ PENDER       |     0.93 |     2.05 |             1.2 |     1.9 |           3.1
+ MCDOWELL     |     0.92 |     1.49 |             2.0 |     0.8 |           2.8
+ IREDELL      |     0.84 |     2.41 |             0.2 |     0.8 |           1.0
+ HARNETT      |     0.81 |     2.34 |             9.4 |     0.3 |           9.7
+ PITT         |     0.71 |     2.42 |             6.0 |     0.2 |           6.2
+ BRUNSWICK    |     0.66 |     2.49 |             1.5 |     0.6 |           2.1
+ DARE         |     0.60 |     1.93 |            17.2 |     3.9 |          21.1
+ MADISON      |     0.55 |     1.29 |             1.6 |     2.5 |           4.1
+ CLEVELAND    |     0.48 |     1.45 |             0.6 |     2.9 |           3.5
+ GASTON       |     0.41 |     0.73 |             0.4 |     0.0 |           0.4
+ BUNCOMBE     |     0.33 |     1.34 |             1.4 |     0.3 |           1.7
+ VANCE        |     0.32 |     0.82 |             7.0 |     0.5 |           7.5
+ CHATHAM      |     0.32 |     2.04 |             5.7 |     0.6 |           6.3
+ CRAVEN       |     0.25 |     1.59 |             0.6 |     1.8 |           2.4
+ ALAMANCE     |     0.24 |     0.52 |             0.9 |     0.1 |           1.0
+ WAYNE        |     0.22 |     2.01 |             0.6 |     0.2 |           0.8
+ GUILFORD     |     0.21 |     1.33 |             3.9 |     0.0 |           3.9
+ CALDWELL     |     0.18 |     0.53 |             3.7 |     1.4 |           5.1
+ CARTERET     |     0.16 |     1.72 |             2.1 |     3.4 |           5.5
+ MECKLENBURG  |     0.14 |     1.10 |             0.5 |     0.0 |           0.5
+ WILSON       |     0.09 |     0.46 |             2.4 |     0.0 |           2.4
+ NEW HANOVER  |     0.03 |     0.30 |             1.7 |     0.2 |           1.9
+ CATAWBA      |     0.00 |     0.55 |             0.3 |     0.0 |           0.3
+ YANCEY       |     0.00 |     0.25 |             4.0 |     1.5 |           5.5
+ WATAUGA      |     0.00 |     0.15 |             3.3 |     0.0 |           3.3
+ FORSYTH      |    -0.02 |     1.68 |             3.9 |     0.0 |           3.9
+ UNION        |    -0.04 |     0.42 |             1.5 |     0.0 |           1.5
+ WAKE         |    -0.05 |     0.46 |             0.3 |     0.0 |           0.3
+ RANDOLPH     |    -0.07 |     2.62 |             1.6 |     2.2 |           3.8
+ ROCKINGHAM   |    -0.09 |     0.96 |             0.6 |     0.0 |           0.6
+ ORANGE       |    -0.10 |     1.53 |             0.5 |     0.0 |           0.5
+ MITCHELL     |    -0.12 |     1.22 |             1.5 |     1.9 |           3.4
+ DUPLIN       |    -0.15 |     0.90 |             1.3 |     5.7 |           7.0
+ LENOIR       |    -0.29 |     0.96 |             0.8 |     0.0 |           0.8
+ JACKSON      |    -0.31 |     0.89 |             7.8 |     0.9 |           8.7
+ DAVIDSON     |    -0.34 |     1.18 |             4.1 |     0.1 |           4.2
+ CABARRUS     |    -0.34 |     1.11 |             4.0 |     0.0 |           4.0
+ HYDE         |    -0.48 |     1.42 |             3.8 |    27.8 |          31.6
+ DURHAM       |    -0.51 |     1.13 |             3.7 |     0.0 |           3.7
+ BURKE        |    -0.74 |     1.59 |             1.1 |     1.0 |           2.1
+ ALEXANDER    |    -0.74 |     1.95 |             0.2 |     0.1 |           0.3
+ GRANVILLE    |    -1.21 |     2.78 |             0.8 |     0.6 |           1.4
+ MONTGOMERY   |    -1.78 |     2.87 |             3.6 |     7.6 |          11.2
+ ROBESON      |    -2.42 |     4.31 |             3.7 |     3.0 |           6.7
+ MOORE        |    -2.66 |     5.65 |             3.1 |     5.0 |           8.1
+(70 rows)
+*/

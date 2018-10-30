@@ -1,9 +1,13 @@
 ## Top-level findings
 **_PLEASE NOTE: These findings are preliminary and still subject to review and change._**
 
+add the one in five
+
 Based on our preliminary analysis so far, it appears voters in poor and rural counties have been the most disproportionately impacted by the changes in early voting locations in 2018, compared to 2014 ([Read the full methodology here](readme.md)).
 
-Compared to urban voters, rural voters are more than 2 times as likely to be one mile or further away from their closest early voting location in 2018 ([t1](#t1)). Voters in the state's poorest counties are more than 3 times as likely as urban voters to be one mile or further away in 2018 ([t2](#t2)).
+About 2 in 10 rural voters are more than a mile further away from their closest early voting location, compared to more than 1 in 10 urban voters. That means rural voters are twice as likely to be one mile or further away from their closest early voting location in 2018 ([t1](#t1)).
+
+About 1 in 4 voters in the state's poorest counties are more than a mile further away, compared. That means poor voters are more than 3 times as likely as urban voters to be one mile or further away in 2018 ([t2](#t2)).
 
 On average, rural voters overall are about 0.68 miles further away from their closest early voting location in 2018 ([t3](#t3)). That's almost four times the change in average distance for urban voters. And voters in the poorest counties are 1 mile further away from their closest site than in 2014, almost six times further away than voters in the wealthiest counties ([t4](#t4)).
 
@@ -147,18 +151,18 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
 ```
   county  | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
 ----------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- rural    |          12339 |       35457 |      46299 |    745680 |      123254 |        74938 |           35297 |        37912 |     42385
- suburban |            126 |        8446 |      76777 |   1054742 |      216132 |        76416 |            8459 |         7534 |     34892
- urban    |            175 |        8676 |     212989 |   3039148 |      364076 |        66069 |            9403 |        16879 |     68368
+ rural    |            1.1 |         3.1 |        4.0 |      64.3 |        10.6 |          6.5 |             3.0 |          3.3 |       3.7
+ suburban |            0.0 |         0.6 |        5.2 |      70.9 |        14.5 |          5.1 |             0.6 |          0.5 |       2.3
+ urban    |            0.0 |         0.2 |        5.6 |      80.2 |         9.6 |          1.7 |             0.2 |          0.4 |       1.8
 ```
 
 ### TABLE THIRTEEN<a name="t13"></a>: Percentage of voters in each Commerce economic tier, by distance category
 ```
-  county  | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
-----------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
- rural    |            1.1 |         3.1 |        4.0 |      64.3 |        10.6 |          6.5 |             3.0 |          3.3 |       3.7
- suburban |            0.0 |         0.6 |        5.2 |      70.9 |        14.5 |          5.1 |             0.6 |          0.5 |       2.3
- urban    |            0.0 |         0.2 |        5.6 |      80.2 |         9.6 |          1.7 |             0.2 |          0.4 |       1.8
+ county | closer_than_10 | 5_10_closer | 1_5_closer | no change | 1_5_further | 5_10_further | further_than_10 | out_of_range | no_coords 
+--------+----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
+ 1      |            1.5 |         2.8 |        3.9 |      57.7 |        12.7 |          8.7 |             4.0 |          4.6 |       3.2
+ 2      |            0.0 |         0.6 |        5.3 |      70.7 |        14.8 |          3.6 |             0.8 |          1.1 |       3.1
+ 3      |            0.2 |         0.7 |        5.4 |      81.5 |         7.5 |          2.5 |             0.4 |          0.3 |       1.5
 ```
 
 ### TABLE FOURTEEN<a name="t14"></a>: Voter stats by ethnic code
