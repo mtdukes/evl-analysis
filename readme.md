@@ -63,13 +63,13 @@ We then used database software to calculate the change in distance from the clos
 
 Because the driving distances were limited to 20 miles from each voting location, 62,325 voters could not be matched with either a 2014 or 2018 isochrone because they were outside the 20-mile range. This amounts to less than 1 percent of the registered voters in the study for which the difference in driving distance could not be calculated.
 
-Using these values, we can calculate average, median, maximum and standard deviation values for each of the following subroup types defined in the voter registration data:
+Using these values, we calculated average, median, maximum and standard deviation values for each of the following subgroup types defined in the voter registration data:
 
 * Political Party
 * Race
 * Ethnicity
 
-In addition to the SBOE-defined subgroups, we can also calculate average, median, maximum and standard deviation values for two types of county geographic designations:
+In addition to the SBOE-defined subgroups, we also calculated average, median, maximum and standard deviation values for two types of county geographic designations:
 
 * [Federal Office of Management & Budget classifications of urban, surburban and rural counties](https://www.oldnorthstatepolitics.com/p/blog-page_5.html)
 * [N.C. Department of Commerce 2018 county tier designations](https://www.nccommerce.com/research-publications/incentive-reports/county-tier-designations), which describe the county's level of economic distress from one to three, with three being the least distressed.

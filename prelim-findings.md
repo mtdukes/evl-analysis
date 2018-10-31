@@ -1,13 +1,12 @@
 ## Top-level findings
-**_PLEASE NOTE: These findings are preliminary and still subject to review and change._**
 
-Based on our preliminary analysis so far, it appears voters in poor and rural counties have been the most disproportionately impacted by the changes in early voting locations in 2018, compared to 2014 ([Read the full methodology here](readme.md)).
+Based on our analysis so far, it appears voters in poor and rural counties have been the most disproportionately impacted by the changes in early voting locations in 2018, compared to 2014 ([Read the full methodology here](readme.md)).
 
 It's important to note, however, that about 78 percent of voters are between one mile closer or one mile further away from their closest early voting location in 2018 than they were in 2014 ([t17](#t17)). But 1 in 10 voters are now further than 1 mile away than they were in 2014.
 
 About 2 in 10 rural voters are more than a mile further away from their closest early voting location, compared to more than 1 in 10 urban voters. That means rural voters are twice as likely to be one mile or further away from their closest early voting location in 2018 ([t1](#t1)).
 
-About 1 in 4 voters in the state's poorest counties are more than a mile further away, compared. That means poor voters are more than 3 times as likely as urban voters to be one mile or further away in 2018 ([t2](#t2)).
+About 1 in 4 voters in the state's poorest counties are more than a mile further away. That means poor voters are more than 3 times as likely as voters in the wealthiest counties to be one mile or further away in 2018 ([t2](#t2)).
 
 On average, rural voters overall are about 0.68 miles further away from their closest early voting location in 2018 ([t3](#t3)). That's almost four times the change in average distance for urban voters. And voters in the poorest counties are 1 mile further away from their closest site than in 2014, almost six times further away than voters in the wealthiest counties ([t4](#t4)).
 
@@ -23,13 +22,11 @@ White and Republican voters are also slightly more likely than other groups to b
 
 Both Hispanic and non-Hispanic voters are, on average, a little further away from early voting sites in 2018 than 2014 ([t14](#t14)). The difference, however, is about 50 percent further for non-Hispanic voters. But both groups are almost as likely to be more than a mile further away from their 2018 early voting location, compared to 2014 ([t15](#t15)).
 
-It's important to note that despite the changes, the State Board of Elections announced this week that early voting in 2018 already surpassed the number of ballots cast in 2014. And that was with six days of early voting left to go.
+Despite the changes, the State Board of Elections announced this week that early voting in 2018 already surpassed the number of ballots cast in 2014. And that was with six days of early voting left to go.
 
 As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ballots in early voting. That's already 4.4 percent higher than the 1.17 million ballots cast during the entire early voting period in 2014.
 
-**_PLEASE NOTE: These findings are preliminary and still subject to review and change._**
-
-### TABLE ONE<a name="t1"></a><a name=""></a>: Voters more than 1 mile further away, per OMB MSA delineation
+### TABLE ONE<a name="t1"></a>: Voters more than 1 mile further away, per OMB MSA delineation
 ```
    omb    | moved_voters | registered_voters | moved_pct 
 ----------+--------------+-------------------+-----------
@@ -38,7 +35,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  urban    |       330789 |           3702487 |       8.9
  ```
 
-### TABLE TWO<a name="t2"></a><a name=""></a>: Voters more than 1 mile further away, per NC Commerce economic tier
+### TABLE TWO<a name="t2"></a>: Voters more than 1 mile further away, per NC Commerce economic tier
 ```
   tier | moved_voters | registered_voters | moved_pct 
 ------+--------------+-------------------+-----------
@@ -47,7 +44,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  3    |       265120 |           3200743 |       8.3
 ```
 
-### TABLE THREE<a name="t3"></a>: Voter stats by OMB MSA delineation
+### TABLE THREE<a name="t3"></a>: Voter stats by OMB MSA delineation, in miles
 ```
    omb    | avg_dist | std_dist | max_dist | min_dist 
 ----------+----------+----------+----------+----------
@@ -56,7 +53,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  rural    |     0.68 |     3.69 |     17.5 |    -16.5
 ```
 
-### TABLE FOUR<a name="t4"></a>: Voter stats by NC Commerce economic tier
+### TABLE FOUR<a name="t4"></a>: Voter stats by NC Commerce economic tier, in miles
 ```
  tier | avg_dist | std_dist | max_dist | min_dist 
 ------+----------+----------+----------+----------
@@ -65,14 +62,14 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  1    |     1.01 |     4.06 |       17 |    -16.5
 ```
 
-### TABLE FIVE<a name="t5"></a>: Overall voter stats
+### TABLE FIVE<a name="t5"></a>: Overall voter stats, in miles
 ```
  avg_dist | std_dist | max_dist | min_dist 
 ----------+----------+----------+----------
      0.36 |     2.21 |     18.5 |    -16.5
 ```
 
-### TABLE SIX<a name="t6"></a>: Voter stats by race code
+### TABLE SIX<a name="t6"></a>: Voter stats by race code, in miles
 ```
  race_code | avg_dist | std_dist | max_dist | min_dist 
 -----------+----------+----------+----------+----------
@@ -85,7 +82,7 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
  W         |     0.42 |     2.24 |     18.5 |    -16.5
 ```
 
-### TABLE SEVEN<a name="t7"></a>: Voter stats by party code
+### TABLE SEVEN<a name="t7"></a>: Voter stats by party code, in miles
 ```
  party_cd | avg_dist | std_dist | max_dist | min_dist 
 ----------+----------+----------+----------+----------
@@ -198,5 +195,3 @@ As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ball
 ----------------+-------------+------------+-----------+-------------+--------------+-----------------+--------------+-----------
             0.2 |         0.8 |        5.2 |      78.2 |         8.6 |          2.9 |             0.8 |          1.0 |       2.3
 ```
-
-**_PLEASE NOTE: These findings are preliminary and still subject to review and change._**

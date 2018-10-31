@@ -1768,3 +1768,77 @@ FROM voters_iso;
 
 Time: 41082.848 ms (00:41.083)
 */
+
+-- give me number of voters moved more than 10 miles away
+SELECT county_desc,
+COUNT(county_desc) as far_voters
+FROM voters_iso
+WHERE dist_diff > 10
+GROUP BY county_desc
+ORDER BY far_voters DESC;
+
+/*
+HALIFAX      |       7868
+ STANLY       |       6613
+ ONSLOW       |       4526
+ PITT         |       3413
+ JOHNSTON     |       3266
+ BERTIE       |       3195
+ BLADEN       |       3164
+ CASWELL      |       3034
+ HENDERSON    |       3024
+ MOORE        |       2840
+ SAMPSON      |       2791
+ SURRY        |       2790
+ IREDELL      |       1922
+ NORTHAMPTON  |       1459
+ NASH         |       1202
+ POLK         |        934
+ CARTERET     |        318
+ ASHE         |        110
+ LINCOLN      |        100
+ CUMBERLAND   |        100
+ ROWAN        |         81
+ BUNCOMBE     |         61
+ CRAVEN       |         52
+ DARE         |         42
+ NEW HANOVER  |         33
+ BRUNSWICK    |         28
+ WILKES       |         27
+ RUTHERFORD   |         26
+ PENDER       |         22
+ MITCHELL     |         17
+ RICHMOND     |         17
+ TRANSYLVANIA |         15
+ HARNETT      |         15
+ MCDOWELL     |         12
+ MECKLENBURG  |         11
+ DAVIE        |         11
+ COLUMBUS     |          7
+ CALDWELL     |          5
+ RANDOLPH     |          3
+ MONTGOMERY   |          2
+ PERSON       |          2
+ JACKSON      |          1
+*/
+
+-- give me some voters
+SELECT first_name, last_name,
+address_match_city,
+full_phone_number,
+race_code,
+party_cd,
+gender_code,
+birth_age,
+iso_2014_dist,
+iso_2018_dist,
+dist_diff
+FROM voters_iso
+WHERE status_cd = 'A'
+AND dist_diff > 10
+AND full_phone_number <> ''
+AND county_desc = 'HALIFAX'
+ORDER BY random()
+LIMIT 20;
+
+
