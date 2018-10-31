@@ -4,9 +4,7 @@
 .DS_Store
 .keys
 *.pyc
-#don't upload for now so we can get our methodology up
-*.csv
+voters_iso_hifi_v2.csv
 *.json
-*.zip
 *.xlsx
 *.sql
