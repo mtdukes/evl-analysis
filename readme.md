@@ -14,6 +14,8 @@ Yet a question remains: Did the change in early voting locations disproportionat
 
 We sought to answer the question using data on more than 7 million registered voters.
 
+[Read more about our findings here.](prelim-findings.md)
+
 ## The data
 
 WRAL News used the following publicly available data from the State Board of Elections and Ethics Enforcement:
@@ -25,7 +27,7 @@ WRAL News used the following publicly available data from the State Board of Ele
 
 The ```voters_iso.csv_v2.zip``` file contains a compressed version of the voter file we used for our analysis, including latitude and longitude coordinates, driving distances for 2014 and 2018 and the difference in those distances.
 
-[Download the file here.](data/voters_iso.csv_v2.zip)
+[Download the file here.](https://www.dropbox.com/s/fgz8rmlhh5h245f/voters_iso.csv_v2.zip?dl=0)
 
 ## Methodology
 

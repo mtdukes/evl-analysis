@@ -1,5 +1,5 @@
 #Ignore these directories
-/geocode_results
+geocode_results/
 
 #ignore these files
 .DS_Store
