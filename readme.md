@@ -2,6 +2,8 @@
 
 WRAL News used early voting locations for 2018 and 2014, as well as voter registration data, to gage the potential impact of changes for the midterms. Among those changes is a [2018 law mandating that any early voting locations](https://www2.ncleg.net/BillLookUp/2017/s325) be open from 7 a.m. to 7 p.m. on weekdays. A [subsequent law](https://www2.ncleg.net/BillLookup/2017/H335) restored the last Saturday before early voting.
 
+[READ THE FULL STORY ON OUR ANALYSIS HERE](https://www.wral.com/early-voting-changes-hit-nc-rural-voters-hardest-but-will-it-matter-in-2018-/17959224/)
+
 Early, or so-called "one-stop," voting locations allow any eligible citizens in the county to vote at any location, instead of voting at a specific precinct.
 
 Republican lawmakers said the changes were important to ensure consistency within counties and cut down on voter confusion. But opponents of the measure said it reduces county flexibility and worried that it could cut voting opportunities for those that couldn't afford to keep sites open for 12 hours straight.
