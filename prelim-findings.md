@@ -22,9 +22,7 @@ White and Republican voters are also slightly more likely than other groups to b
 
 Both Hispanic and non-Hispanic voters are, on average, a little further away from early voting sites in 2018 than 2014 ([t14](#t14)). The difference, however, is about 50 percent further for non-Hispanic voters. But both groups are almost as likely to be more than a mile further away from their 2018 early voting location, compared to 2014 ([t15](#t15)).
 
-Despite the changes, the State Board of Elections announced this week that early voting in 2018 already surpassed the number of ballots cast in 2014. And that was with six days of early voting left to go.
-
-As of 3:30 p.m. Monday, about 1.23 million North Carolinians had cast their ballots in early voting. That's already 4.4 percent higher than the 1.17 million ballots cast during the entire early voting period in 2014.
+Despite the changes, the State Board of Elections announced this week that early voting in 2018 already surpassed the number of ballots cast in 2014. And that was with several days of early voting left to go.
 
 ### TABLE ONE<a name="t1"></a>: Voters more than 1 mile further away, per OMB MSA delineation
 ```

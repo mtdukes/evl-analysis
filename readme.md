@@ -1,8 +1,8 @@
 # Early voting location analysis
 
-WRAL News used early voting locations for 2018 and 2014, as well as voter registration data, to gage the potential impact of changes for the midterms. Among those changes is a [2018 law mandating that early voting locations](https://www2.ncleg.net/BillLookUp/2017/s325) be open from 7 a.m. to 7 p.m. on any day they are open. A [subsequent law](https://www2.ncleg.net/BillLookup/2017/H335) restored the last Saturday before early voting.
+WRAL News used early voting locations for 2018 and 2014, as well as voter registration data, to gage the potential impact of changes for the midterms. Among those changes is a [2018 law mandating that any early voting locations](https://www2.ncleg.net/BillLookUp/2017/s325) be open from 7 a.m. to 7 p.m. on weekdays. A [subsequent law](https://www2.ncleg.net/BillLookup/2017/H335) restored the last Saturday before early voting.
 
-Early, or so-called "one-stop," voting locations allow anybody in the county to vote at any location, instead of voting at a specific precinct.
+Early, or so-called "one-stop," voting locations allow any eligible citizens in the county to vote at any location, instead of voting at a specific precinct.
 
 Republican lawmakers said the changes were important to ensure consistency within counties and cut down on voter confusion. But opponents of the measure said it reduces county flexibility and worried that it could cut voting opportunities for those that couldn't afford to keep sites open for 12 hours straight.
 
@@ -22,6 +22,10 @@ WRAL News used the following publicly available data from the State Board of Ele
 * [Latitude/Longitude coordinates for unique NC voter addresses](https://s3.amazonaws.com/dl.ncsbe.gov/ShapeFiles/address_points_sboe.zip)
 * 2018 early voting locations
 * 2014 early voting locations
+
+The ```voters_iso.csv_v2.zip``` file contains a compressed version of the voter file we used for our analysis, including latitude and longitude coordinates, driving distances for 2014 and 2018 and the difference in those distances.
+
+[Download the file here.](data/voters_iso.csv_v2.zip)
 
 ## Methodology
 
@@ -47,11 +51,11 @@ python getIsochrones.py data/early_voting2018.csv 2018
 
 Open Route Service limits queries through its API to 10 shapefiles at a time. The service also limits total API queries to 2,500 a day.
 
-Due to these limitations, the Python script runs queries for each site four times to produce a geojson feature collection with shapefiles at 0.5-mile intervals from 0.5 to 20, which each polygon describing a driving distance range.
+Due to these limitations, the Python script runs queries for each site four times to produce a geojson feature collection with shapefiles at 0.5-mile intervals from 0.5 to 20, with each polygon describing a driving distance range.
 
 For example, a point that appears in the isochrone with a mile value of 5, but not in an isochrone with a mile value of 4.5, is within 4.5 and 5 miles from the early voting location.
 
-Voter registration data, in CSV format, [is loaded into the database](http://www.kevfoo.com/2012/01/Importing-CSV-to-PostGIS/), and a separate Python script is used to import the isochrone geojsons using [ogr2ogr](https://www.gdal.org/ogr2ogr.html) and its [pygdaltools wrapper](https://pypi.org/project/pygdaltools/). Usage for [```loadIsochrones.py```](loadIsochrones.py):
+Voter registration data, in CSV format, [are loaded into the database](http://www.kevfoo.com/2012/01/Importing-CSV-to-PostGIS/), and a separate Python script was used to import the isochrone geojsons using [ogr2ogr](https://www.gdal.org/ogr2ogr.html) and its [pygdaltools wrapper](https://pypi.org/project/pygdaltools/). Usage for [```loadIsochrones.py```](loadIsochrones.py):
 
 ```bash
 python loadIsochrones.py data/isochrones_lookup.csv

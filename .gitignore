@@ -1,12 +1,10 @@
 #Ignore these directories
-/original-data
+/geocode_results
 
 #ignore these files
 .DS_Store
 .keys
 *.pyc
 #don't upload for now so we can get our methodology up
-*.csv
-*.json
-*.zip
+voters_iso_hifi_v2.csv
 *.xlsx

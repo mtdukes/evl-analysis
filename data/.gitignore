@@ -5,6 +5,7 @@
 .keys
 *.pyc
 voters_iso_hifi_v2.csv
+voters_iso.csv_v2.zip
 *.json
 *.xlsx
 *.sql
