@@ -27,7 +27,7 @@ WRAL News used the following publicly available data from the State Board of Ele
 
 The ```voters_iso.csv_v2.zip``` file contains a compressed version of the voter file we used for our analysis, including latitude and longitude coordinates, driving distances for 2014 and 2018 and the difference in those distances.
 
-[Download the file here.](https://www.dropbox.com/s/fgz8rmlhh5h245f/voters_iso.csv_v2.zip?dl=0)
+[Download the file here.](https://www.dropbox.com/s/fgz8rmlhh5h245f/voters_iso.csv_v2.zip?dl=1)
 
 ## Methodology
 
