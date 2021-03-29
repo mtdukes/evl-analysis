@@ -31,7 +31,7 @@ prometheus-client==0.4.0
 prompt-toolkit==2.0.5
 ptyprocess==0.6.0
 pygdaltools==1.2
-Pygments==2.2.0
+Pygments==2.7.4
 python-dateutil==2.7.3
 pyzmq==17.1.2
 qtconsole==4.4.1
